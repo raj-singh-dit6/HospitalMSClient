@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h4 class="modal-title">Fill user details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+              <label for="userHospital">Hospital</label>
+              <select
+                id="userHospital"
+                formControlName="userHospital"
+                class="form-control">
+                <option></option>
+                <option  *ngFor="let hospital of hospitals" id="{{hospital.id}}">{{hospital.name}}</option>
+              </select>
+              <span class="help-block" *ngIf="!userForm.get('userHospital').valid && userForm.get('userHospital').touched">Please select a hospital for which you want to add user.</span>
+          </div>
+          <div class="form-group">
+              <label for="userRole">Role</label>
+              <select
+                id="userRole"
+                formControlName="userRole"
+                class="form-control">
+                <option></option>
+                <option *ngFor="let role of roles" id="{{role.id}}">{{role.type}}</option>
+              </select>
+              <span class="help-block" *ngIf="!userForm.get('userRole').valid && userForm.get('userRole').touched">Please select a role for the user.</span>
+          </div>
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input
+              type="text"
+              id="userName"
+              formControlName="userName"
+              class="form-control">
+              <span class="help-block" *ngIf="!userForm.get('userName').valid && userForm.get('userName').touched">Please enter a user name.</span>
+        </div>
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            class="form-control">
+            <span class="help-block" *ngIf="!userForm.get('firstName').valid && userForm.get('firstName').touched">Please enter your first name.</span>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="form-control">
+            <span class="help-block" *ngIf="!userForm.get('email').valid && userForm.get('email').touched">Please enter your email address.</span>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <label for="dob">DOB</label>
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                  name="dob" ngbDatepicker #d="ngbDatepicker" formControlName="dob">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <img src="../../../assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+            </div>
+          </div>
+          <span class="help-block" *ngIf="!userForm.get('dob').valid && userForm.get('dob').touched">Please enter your date of birth.</span>
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact</label>
+            <input
+              type="text"
+              id="contact"
+              formControlName="contact"
+              class="form-control">
+              <span class="help-block" *ngIf="!userForm.get('contact').valid && userForm.get('contact').touched">Please enter your contact number.</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="text"
+              id="password"
+              formControlName="password"
+              class="form-control">
+              <span class="help-block" *ngIf="!userForm.get('password').valid && userForm.get('password').touched">Please enter valid password.</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="text"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              class="form-control">
+              <span class="help-block" *ngIf="!userForm.get('confirmPassword').valid && userForm.get('confirmPassword').touched">Please confirm password.</span>
+        </div>
+         <span class="help-block" *ngIf="!userForm.valid && userForm.get('confirmPassword').touched">Please enter valid data.</span>
+         <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Add</button>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>

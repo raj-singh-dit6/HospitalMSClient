@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">Occupancy</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="occupancyForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label for="occupType">Occupancy Type</label>
+          <input
+            type="text"
+            id="occupType"
+            formControlName="occupType"
+            class="form-control">
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!occupancyForm.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+          <button
+            class="btn btn-danger"
+            type="button"
+            (click)="onDelete()"
+            *ngIf="editMode">Delete</button>
+        </div>
+      </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
