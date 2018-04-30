@@ -1,11 +1,9 @@
-<div class="row">
-    <div class="col-md-12">
-      <app-admin *ngIf="userInfo.roles.includes('ADMIN')"></app-admin>
-      <app-head *ngIf="userInfo.roles.includes('HEAD')"></app-head>
-      <app-doctor *ngIf="userInfo.roles.includes('DOCTOR')"></app-doctor>
-      <app-patient *ngIf="userInfo.roles.includes('PATIENT')"></app-patient>
-    </div>
-  </div>
+<div class="col-md-12">
+  <app-admin></app-admin>
+  <!-- <app-head *ngIf="userInfo.roles.includes('HEAD')"></app-head>
+  <app-doctor *ngIf="userInfo.roles.includes('DOCTOR')"></app-doctor>
+  <app-patient *ngIf="userInfo.roles.includes('PATIENT')"></app-patient> -->
+</div>
 
   
 

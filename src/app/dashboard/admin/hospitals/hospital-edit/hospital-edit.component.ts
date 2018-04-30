@@ -1,56 +1,108 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControlName, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControlName, Validators, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { Occupancy } from '../../../../model/occupany.model';
-import { OccupancyService } from '../../../../services/occupancy.service';
+import { SpecialityService } from '../../../../services/speciality.service';
+import { Speciality } from '../../../../model/speciality.model';
+import { Hospital } from '../../../../model/hospital.model';
+import { HospitalsComponent } from '../hospitals.component';
+import { HospitalService } from '../../../../services/hospital.service';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-hospital-edit',
   templateUrl: './hospital-edit.component.html',
   styleUrls: ['./hospital-edit.component.css'],
 })
-export class HospitalEditComponent implements OnInit {
+export class HospitalEditComponent implements OnInit, OnDestroy {
   @Input() id:any;
   hospitalForm:FormGroup;
-  occupencies:Occupancy[];
+  specialities:Speciality[];
+  specialitySubs:Subscription;
   editMode=false;
-  constructor(public activeModal: NgbActiveModal,private occupancyService:OccupancyService) { }
+  constructor(public activeModal: NgbActiveModal,private specialityService:SpecialityService,private hospitalService:HospitalService,private formBuilder: FormBuilder,private router:Router) { }
 
   ngOnInit() {
     if(this.id!=""){
       this.editMode=true;
     }
-    this.occupancyService.getOccupancies().subscribe(result=>{
-      this.occupencies=result.data;
-      console.log(this.occupencies);
+    this.specialitySubs= this.specialityService.specialitiesChanged
+    .subscribe(
+      (specialities: Speciality[]) => {
+        this.specialities = specialities;
+      }
+    ); 
+
+    
+    this.specialityService.getSpecialities().subscribe(result=>{
+      if(result.total!=0)
+      {
+        this.specialities=result.data;
+      }
     })
     this.initForm();
    
   }
 
-  initForm(){
-    if(this.editMode==true){
+  private initForm(){
+    let name='';
+    let address='';
+    let contact:number;
+    let speciality:Speciality;
+    if(this.editMode){
+      let hospital:Hospital;
+      this.hospitalService.getHospital(this.id).subscribe(result=>
+      {
+        if(result.total!=0){
+         hospital=result.data
+         name=hospital.name;
+         address=hospital.address;
+         contact=hospital.contact;
+         speciality=hospital.speciality;
+         console.log(hospital);
+        }
+      });
+      this.hospitalForm= this.formBuilder.group({
+        name:new FormControl(name,Validators.required),
+        speciality:new FormControl(speciality,Validators.required),
+        address:new FormControl(address,Validators.required),
+        contact:new FormControl(contact,[Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/)])
 
-      }else{
+        });
+  
+    }else{
+    this.hospitalForm= this.formBuilder.group({
+      name:new FormControl(name,Validators.required),
+      speciality:new FormControl(speciality,Validators.required),
+      address:new FormControl(address,Validators.required),
+      contact:new FormControl(contact,[Validators.required,
+                                    Validators.pattern(/^[1-9]+[0-9]*$/)])                   
+    });
+  }
+}
 
-        let hospitalRooms = new FormArray([]);
-        this.hospitalForm= new FormGroup({
-          'name':new FormControl('',Validators.required),
-          'rooms': hospitalRooms
-        })
-
-    }
+  onSubmit(){
+        this.hospitalService.addHospital(this.hospitalForm.value).subscribe(result=>{
+      if(result && result.success){
+        let hospitals:Hospital[]=[];
+        this.hospitalService.getHospitals().subscribe((result)=>{
+          if(result.total!=0)
+        {
+          hospitals=result.data;
+        }
+       });
+        this.hospitalService.hospitalChanged.next(hospitals);
+        debugger
+        this.activeModal.close();
+      }
+    });
   }
 
-  onAddRoom() {
-    (<FormArray>this.hospitalForm.get('rooms')).push(
-      new FormGroup({
-        'name': new FormControl(null, Validators.required)
-      })
-    );
+  ngOnDestroy() {
+    this.specialitySubs.unsubscribe();
   }
 
-  onDeleteRoom(index: number) {
-    (<FormArray>this.hospitalForm.get('rooms')).removeAt(index);
-  }
 }

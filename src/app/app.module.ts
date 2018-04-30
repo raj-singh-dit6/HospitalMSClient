@@ -35,22 +35,30 @@ import { HospitalEditComponent } from './dashboard/admin/hospitals/hospital-edit
 import { ModalService } from './services/modal.service';
 import { OccupancyService } from './services/occupancy.service';
 import { UserService } from './services/user.service';
-import { OccupanciesComponent } from './dashboard/admin/occupancies/occupancies.component';
+import { OccupanciesComponent } from './dashboard/details/occupancies/occupancies.component';
 
-import { OccupancyListComponent } from './dashboard/admin/occupancies/occupancy-list/occupancy-list.component';
-import { OccupancyEditComponent } from './dashboard/admin/occupancies/occupancy-edit/occupancy-edit.component';
-import { RoomsComponent } from './dashboard/admin/rooms/rooms.component';
-import { UsersComponent } from './dashboard/admin/users/users.component';
+import { OccupancyListComponent } from './dashboard/details/occupancies/occupancy-list/occupancy-list.component';
+import { OccupancyEditComponent } from './dashboard/details/occupancies/occupancy-edit/occupancy-edit.component';
+import { RoomsComponent } from './dashboard/details/rooms/rooms.component';
+import { UsersComponent } from './dashboard/details/users/users.component';
 
-import { RoomEditComponent } from './dashboard/admin/rooms/room-edit/room-edit.component';
-import { RoomListComponent } from './dashboard/admin/rooms/room-list/room-list.component';
+import { RoomEditComponent } from './dashboard/details/rooms/room-edit/room-edit.component';
+import { RoomListComponent } from './dashboard/details/rooms/room-list/room-list.component';
 
-import { UserListComponent } from './dashboard/admin/users/user-list/user-list.component';
-import { UserEditComponent } from './dashboard/admin/users/user-edit/user-edit.component';
+import { UserListComponent } from './dashboard/details/users/user-list/user-list.component';
+import { UserEditComponent } from './dashboard/details/users/user-edit/user-edit.component';
 import { HospitalListComponent } from './dashboard/admin/hospitals/hospital-list/hospital-list.component';
-import { OccupancyComponent } from './dashboard/admin/occupancies/occupancy-list/occupancy/occupancy.component';
-import { RoomComponent } from './dashboard/admin/rooms/room-list/room/room.component';
-import { UserComponent } from './dashboard/admin/users/user-list/user/user.component';
+import { OccupancyComponent } from './dashboard/details/occupancies/occupancy-list/occupancy/occupancy.component';
+import { RoomComponent } from './dashboard/details/rooms/room-list/room/room.component';
+import { UserComponent } from './dashboard/details/users/user-list/user/user.component';
+import { DetailsComponent } from './dashboard/details/details.component';
+import { AdminHeaderComponent } from './dashboard/admin/admin-header/admin-header.component';
+import { SpecialitiesComponent } from './dashboard/admin/specialities/specialities.component';
+import { SpecialityComponent } from './dashboard/admin/specialities/speciality/speciality.component';
+import { SpecialityListComponent } from './dashboard/admin/specialities/speciality-list/speciality-list.component';
+import { SpecialityEditComponent } from './dashboard/admin/specialities/speciality-edit/speciality-edit.component';
+import { Speciality } from './model/speciality.model';
+import { SpecialityService } from './services/speciality.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +95,12 @@ import { UserComponent } from './dashboard/admin/users/user-list/user/user.compo
     UsersComponent,
     UserListComponent,
     UserEditComponent,
+    DetailsComponent,
+    AdminHeaderComponent,
+    SpecialitiesComponent,
+    SpecialityComponent,
+    SpecialityEditComponent,
+    SpecialityListComponent,
     
   ],
   imports: [
@@ -99,8 +113,8 @@ import { UserComponent } from './dashboard/admin/users/user-list/user/user.compo
     NgbModule.forRoot()
     
   ],
-  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService],
-  entryComponents: [RecipeEditComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent],
+  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService],
+  entryComponents: [RecipeEditComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent],
   bootstrap: [AppComponent]
   
 })

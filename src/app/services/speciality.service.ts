@@ -11,53 +11,50 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
 import { Role } from '../model/role.model';
+import { Speciality } from '../model/speciality.model';
 import { of } from 'rxjs/observable/of';
-import { Hospital } from '../model/hospital.model';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class HospitalService {
-
-  hospitalChanged= new Subject<Hospital[]>();
+export class SpecialityService {
+  specialitiesChanged = new Subject<Speciality[]>();
   constructor(private http: Http) {}
   
-  getHospitals(){
-    let url = APP_HOME+"hospital/all";
+  getSpecialities(){
+    let url = APP_HOME+"speciality/all";
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  getHospital(id:number){
-    let url = APP_HOME+"hospital/"+id;
+  getSpeciality(id:number){
+    let url = APP_HOME+"speciality/"+id;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  addHospital(hospital:Hospital){
-    alert(JSON.stringify(hospital));
-    let url = APP_HOME+"hospital/add";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+  addSpeciality(speciality:Speciality){
+    
+     let url = APP_HOME+"speciality/add";
+     return this.http.post(url,JSON.stringify(speciality),this.getRequestOptions())
+      .map((res: Response) => res.json())
+       .catch((err: Response) => this.handleError(err));
+  }
+
+  updateSpeciality(speciality:Speciality){
+    let url = APP_HOME+"speciality/update";
+    return this.http.post(url,speciality,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-
-  updateHospital(hospital:Hospital){
-    let url = APP_HOME+"hospital/update";
-    return this.http.post(url,hospital,this.getRequestOptions())
+  deleteSpeciality(id:number){
+    let url = APP_HOME+"speciality/delete?id="+id;
+    return this.http.post(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
-
-  deleteHospital(id:number){
-    let url = APP_HOME+"hospital/delete?id="+id;
-    return this.http.delete(url,this.getRequestOptions())
-      .map((res: Response) => res.json())
-      .catch((err: Response) => this.handleError(err));
-  }
-
 
   private handleError(error: Response) {
     console.error(error);
@@ -75,6 +72,5 @@ export class HospitalService {
       })
     });
     return options;
-  }
-
+    } 
 }

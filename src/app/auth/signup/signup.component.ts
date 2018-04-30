@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
 
   initForm(){
     if(this.editMode==true){
-debugger
+// debugger
     }else{
       this.userForm = new FormGroup({
         'userHospital': new FormControl('', Validators.required),

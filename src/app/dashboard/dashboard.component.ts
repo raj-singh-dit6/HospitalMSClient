@@ -13,8 +13,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.sessionKey = localStorage.getItem('sessionKey');
-    this.userInfo = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    console.log(this.userInfo);
+    this.userInfo = JSON.parse(localStorage.getItem('user')) || { userName: '' };   
+    // debugger
   }
 
 }

@@ -1,4 +1,5 @@
 import { Room } from "./room.model";
+import { Speciality } from "./speciality.model";
 
 export class Hospital{
     
@@ -6,5 +7,13 @@ export class Hospital{
     name:string;
     address:string;
     room:Room[];
-    constructor(id:number,name:string,address:string,room:Room[]){}   
+    speciality:Speciality;
+    contact:number;
+    constructor(id:number,name:string,address:string,speciality:Speciality,contact:number){
+        this.id=id;
+        this.name=name;
+        this.address=address;
+        this.speciality=speciality,
+        this.contact=contact;
+    }   
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HospitalEditComponent } from './hospital-edit/hospital-edit.component';
 import { ModalService } from '../../../services/modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hospitals',
@@ -10,16 +11,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HospitalsComponent implements OnInit {
 
-  constructor(private modalService:ModalService) { }
+  constructor(private modalService:ModalService,private router:Router) { }
 
   ngOnInit() {
   }
 
-  onNewUser()
+  onNewHospital()
   {
      this.modalService.open( HospitalEditComponent,'');
-    //this.modalservice.open(HospitalEditComponent,{centered:true,})
 
+  }
+
+  onManageSpecialities()
+  {
+     this.router.navigateByUrl('specialities')  ;
   }
 
 }

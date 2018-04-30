@@ -8,10 +8,10 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
+import { APP_HOME } from '../shared/constant/api-constant';
 
 @Injectable()
 export class AuthService {
-  _BASEURL:string='http://localhost:8080/SecuredWeb';
   loggedIn:boolean=false;
   currentUser:UserInfo;
 
@@ -23,7 +23,7 @@ export class AuthService {
     this.loggedIn = false;
     localStorage.removeItem('user');
 
-    let url = this._BASEURL+"/login";
+    let url = APP_HOME+"login";
     
     let body = new FormData();
     body.append('username', username);
@@ -31,7 +31,6 @@ export class AuthService {
     return this.http.post(url,body)
       .map((res: Response) => res.json())
       .map((res) => {
-        console.log(res);
         if (res && res.data) {
           let userJson: any = res.data;
           console.log(userJson);
@@ -55,6 +54,8 @@ export class AuthService {
 
   isAuthenticated()
   {
-    return this.loggedIn;
+    let sessionKey= localStorage.getItem('sessionKey');
+    let userInfo = JSON.parse(localStorage.getItem('user')) || { userName: '' };
+    return sessionKey!="";
   }
 }
