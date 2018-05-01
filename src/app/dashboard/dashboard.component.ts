@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfo } from '../model/UserInfo.model';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,12 +11,15 @@ import { UserInfo } from '../model/UserInfo.model';
 export class DashboardComponent implements OnInit {
   userInfo:UserInfo;
   sessionKey:string;
-  constructor() { }
+  constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit() {
     this.sessionKey = localStorage.getItem('sessionKey');
     this.userInfo = JSON.parse(localStorage.getItem('user')) || { userName: '' };   
-    // debugger
+    if(!this.authService.isAuthenticated())
+    {
+      this.router.navigateByUrl("/signin")
+    }
   }
 
 }

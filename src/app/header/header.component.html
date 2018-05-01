@@ -38,7 +38,7 @@
             <div class="btn-group btn-group-sm">
               <button type="button" class="btn btn-sm btn-outline-primary" (click)="onNewRegistration()" value="Register" *ngIf="!authService.isAuthenticated()"><a class="nav-link" (click)="onNewRegistration()"></a>Register</button>
               <button type="button" class="btn btn-sm btn-outline-success" *ngIf="!authService.isAuthenticated()"><a class="nav-link" routerLink="/signin" ></a>Sign In</button>
-              <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="authService.isAuthenticated()"><a class="nav-link" (click)="onLogout()"></a>Sign Out</button>
+              <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="authService.isAuthenticated()"><a class="nav-link" (click)="onSignOut()"></a>Sign Out</button>
             </div>
           </ul> 
       </div> 

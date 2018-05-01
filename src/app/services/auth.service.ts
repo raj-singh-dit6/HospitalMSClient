@@ -33,7 +33,6 @@ export class AuthService {
       .map((res) => {
         if (res && res.data) {
           let userJson: any = res.data;
-          console.log(userJson);
           let userInfo = new UserInfo(userJson.id, userJson.userName, userJson.email, userJson.firstName,
                           userJson.lastName,userJson.roles);
           localStorage.setItem('user', JSON.stringify(userInfo));
@@ -56,6 +55,29 @@ export class AuthService {
   {
     let sessionKey= localStorage.getItem('sessionKey');
     let userInfo = JSON.parse(localStorage.getItem('user')) || { userName: '' };
-    return sessionKey!="";
+    return sessionKey!=null;
+  }
+
+  signOut()
+  {
+    let sessionKey= localStorage.getItem('sessionKey');
+    let url = APP_HOME+"/userSession/delete/"+sessionKey;
+    let user = JSON.parse(localStorage.getItem('user')) || { userName: '' };
+    return this.http.delete(url,this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  private getRequestOptions(): RequestOptions {
+    let sessionKey = localStorage.getItem('sessionKey');
+    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
+    let username = user['userName'];
+    let options = new RequestOptions({
+      headers: new Headers({
+        'Authorization': username + ';' + sessionKey,
+        'content-type': 'application/json'
+      })
+    });
+    return options;
   }
 }

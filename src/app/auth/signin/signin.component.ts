@@ -14,6 +14,9 @@ export class SigninComponent implements OnInit {
   loginStatus= new Subject();
   constructor(private authService: AuthService,private router:Router){}
   ngOnInit() {
+
+    if(this.authService.isAuthenticated())
+        this.router.navigateByUrl("/dashboard");      
   }
 
   onSignin(form: NgForm) {
