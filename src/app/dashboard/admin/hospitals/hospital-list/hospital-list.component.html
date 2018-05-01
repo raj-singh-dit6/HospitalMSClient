@@ -4,6 +4,7 @@
         <th scope="col">Adrress</th>
         <th scope="col">Contact No.</th>
         <th scope="col">Active Status</th>
+        <th scope="col">Speciality</th>
         <th scope="col"></th>
         <th scope="col"></th>
     </thead>
@@ -13,6 +14,7 @@
             <td scope="col">{{hospital.address}}</td>
             <td scope="col">{{hospital.contact}}</td>
             <td scope="col">{{hospital.active}}</td>
+            <td scope="col">{{hospital.speciality.type}}</td>
             <td scope="col">
                 <button class="btn btn-primary" (click)="onEditHospital(hospital)">Edit</button>
             <td scope="col">

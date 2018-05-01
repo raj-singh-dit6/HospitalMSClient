@@ -41,7 +41,19 @@ export class SpecialityListComponent implements OnInit, OnDestroy {
 
   onDeleteSpeciality(speciality:Speciality)
   {
-    this.specialityService.deleteSpeciality(speciality.id);
+    this.specialityService.deleteSpeciality(speciality.id).subscribe(result=>{
+      if(result.success)
+      {
+        this.specialityService.getSpecialities().subscribe(result=>{
+          if(result.total!=0)
+          {
+            let specialities:Speciality[]=result.data;
+            this.specialityService.specialitiesChanged.next(specialities);
+            debugger;
+          }
+        });
+      }
+    });
   }
 
   ngOnDestroy() {

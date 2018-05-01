@@ -41,8 +41,19 @@ export class HospitalListComponent implements OnInit,OnDestroy {
 
   onDeleteHospital(hospital:Hospital)
   {
-    debugger
-    this.hospitalService.deleteHospital(hospital.id);
+
+    this.hospitalService.deleteHospital(hospital.id).subscribe(result=>{
+    if(result.success)
+    {
+      this.hospitalService.getHospitals().subscribe(result=>{
+        if(result.total!=0)
+        {
+          let hospitals:Hospital[]=result.data;
+          this.hospitalService.hospitalChanged.next(hospitals);
+        }
+      });
+    }
+    });
   }
   
   ngOnDestroy()

@@ -50,8 +50,8 @@ export class SpecialityService {
   }
 
   deleteSpeciality(id:number){
-    let url = APP_HOME+"speciality/delete?id="+id;
-    return this.http.post(url,this.getRequestOptions())
+    let url = APP_HOME+"speciality/delete/"+id;
+    return this.http.delete(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }

@@ -6,7 +6,18 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="hospitalForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
+    <!-- <ng-container *ngIf="specialityForm?.controls">
+
+            <div *ngFor="let formControl of (specialityForm?.controls | keys)">
+    
+                    <label >{{formControl}}</label>
+                    <input
+                        type="text"
+                        [formControlName]="formControl"
+                        class="form-control">
+            </div>
+        </ng-container> -->
+        <div class="form-group" *ngIf="hospitalForm?.controls?.name">
             <label for="name">Name</label>
             <input
               type="text"
@@ -14,17 +25,17 @@
               formControlName="name"
               class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="hospitalForm?.controls?.speciality">
             <label for="speciality">Speciality</label>
             <select
               id="speciality"
               formControlName="speciality"
               class="form-control"
               >
-                <option *ngFor="let speciality of specialities" [ngValue]="speciality">{{speciality.type}}</option>
+                <option *ngFor="let speciality of specialities" [value]="speciality.id">{{speciality.type}}</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="hospitalForm?.controls?.address">
             <label for="address">Address</label>
             <textarea
               type="text"
@@ -32,13 +43,18 @@
               formControlName="address"
               class="form-control"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="hospitalForm?.controls?.contact">
             <label for="contact">Contact</label>
             <input
               type="text"
               id="contact"
               formControlName="contact"
               class="form-control">
+        </div>
+        <div class="form-group" *ngIf="hospitalForm?.controls?.active">
+            <label class="btn-secondary" ngbButtonLabel>
+                <input type="checkbox" formControlName="active" ngbButton> Active
+            </label>
         </div>
         <button class="btn btn-primary" type="submit" [disabled]="!hospitalForm.valid">{{ editMode ? 'Update' : 'Add' }}</button>
     </form>

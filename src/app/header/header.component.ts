@@ -22,6 +22,7 @@ export class HeaderComponent {
     this.sessionKey = localStorage.getItem('sessionKey');
     this.userInfo = JSON.parse(localStorage.getItem('user')) || { username: '' };
     this.userRoles = this.userInfo.roles;
+    console.log(this.sessionKey);
     if(!this.authService.isAuthenticated())
     {
       this.router.navigateByUrl("/signin");
@@ -38,7 +39,10 @@ export class HeaderComponent {
     this.authService.signOut().subscribe((result)=>{
       if(result.success)
       {
-        this.router.navigateByUrl("/signin")
+        localStorage.removeItem('sessionKey');
+        localStorage.removeItem('user');
+        this.router.navigateByUrl("/signin");
+        debugger
       }
     });
   }

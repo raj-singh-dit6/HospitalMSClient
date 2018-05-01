@@ -16,10 +16,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.sessionKey = localStorage.getItem('sessionKey');
     this.userInfo = JSON.parse(localStorage.getItem('user')) || { userName: '' };   
-    if(!this.authService.isAuthenticated())
-    {
-      this.router.navigateByUrl("/signin")
-    }
   }
 
 }

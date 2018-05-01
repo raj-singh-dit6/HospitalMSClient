@@ -16,6 +16,9 @@ import { UsersComponent } from './dashboard/details/users/users.component';
 import { RoomsComponent } from './dashboard/details/rooms/rooms.component';
 import { SpecialitiesComponent } from './dashboard/admin/specialities/specialities.component';
 import { DetailsComponent } from './dashboard/details/details.component';
+import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
+import { PatientsComponent } from './dashboard/details/patients/patients.component';
+import { HeadComponent } from './dashboard/head/head.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
@@ -45,12 +48,15 @@ const appRoutes: Routes = [
   },
   { path: 'hospitals', component: HospitalsComponent },
   { path: 'dashboard/details/:hospitalId', component: DetailsComponent },
-  { path: 'occupancies', component: OccupanciesComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'rooms', component: RoomsComponent },
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'signin', component: SigninComponent },
-  { path :'specialities' ,component:SpecialitiesComponent}
+  { path :'specialities' ,component:SpecialitiesComponent},
+  { path :'doctors/:hospitalId' ,component:DoctorsComponent},
+  { path :'patients/:hospitalId' ,component:PatientsComponent},
+  { path: 'occupancies', component: OccupanciesComponent },
+  { path: 'rooms/:hospitalId', component: RoomsComponent },
+  { path: 'users/:hospitalId', component: UsersComponent },
+  { path: 'head/:hospitalId', component: HeadComponent },
 ];
 
 @NgModule({

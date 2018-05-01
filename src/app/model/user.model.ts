@@ -6,13 +6,14 @@ export class User{
     userName:string;
     firstName:string;
     lastName:string;
+    address:string;
     email:string;
     contact:number;
-    dob:Date;
+    dob:string;
     roleId:number;
     hospitalId:number;
 
-    constructor(id:number,userName:string,firstName:string,lastName:string,email:string,roleId:number,hospitalId:number){
+    constructor(id:number,userName:string,firstName:string,lastName:string,email:string,roleId:number,hospitalId:number,address:string){
             this.id = id;
             this.userName=userName;
             this.firstName=firstName;
@@ -20,5 +21,6 @@ export class User{
             this.email=email;
             this.roleId=roleId;
             this.hospitalId=hospitalId;
+            this.address=address;
     }
 }

@@ -52,13 +52,20 @@ import { OccupancyComponent } from './dashboard/details/occupancies/occupancy-li
 import { RoomComponent } from './dashboard/details/rooms/room-list/room/room.component';
 import { UserComponent } from './dashboard/details/users/user-list/user/user.component';
 import { DetailsComponent } from './dashboard/details/details.component';
-import { AdminHeaderComponent } from './dashboard/admin/admin-header/admin-header.component';
 import { SpecialitiesComponent } from './dashboard/admin/specialities/specialities.component';
-import { SpecialityComponent } from './dashboard/admin/specialities/speciality/speciality.component';
 import { SpecialityListComponent } from './dashboard/admin/specialities/speciality-list/speciality-list.component';
 import { SpecialityEditComponent } from './dashboard/admin/specialities/speciality-edit/speciality-edit.component';
 import { Speciality } from './model/speciality.model';
 import { SpecialityService } from './services/speciality.service';
+import { RoomService } from './services/room.service';
+import { PatientService } from './services/patient.service';
+import { DoctorService } from './services/doctor.service';
+import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
+import { PatientsComponent } from './dashboard/details/patients/patients.component';
+import { AdminHeaderComponent } from './dashboard/details/admin-header/admin-header.component';
+import { DoctorListComponent } from './dashboard/details/doctors/doctor-list/doctor-list.component';
+import { DoctorEditComponent } from './dashboard/details/doctors/doctor-edit/doctor-edit.component';
+import { KeysPipe } from './shared/keys.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,9 +105,13 @@ import { SpecialityService } from './services/speciality.service';
     DetailsComponent,
     AdminHeaderComponent,
     SpecialitiesComponent,
-    SpecialityComponent,
     SpecialityEditComponent,
     SpecialityListComponent,
+    DoctorsComponent,
+    PatientsComponent,
+    DoctorListComponent,
+    DoctorEditComponent,
+    KeysPipe,
     
   ],
   imports: [
@@ -113,8 +124,8 @@ import { SpecialityService } from './services/speciality.service';
     NgbModule.forRoot()
     
   ],
-  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService],
-  entryComponents: [RecipeEditComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent],
+  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService],
+  entryComponents: [HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent],
   bootstrap: [AppComponent]
   
 })

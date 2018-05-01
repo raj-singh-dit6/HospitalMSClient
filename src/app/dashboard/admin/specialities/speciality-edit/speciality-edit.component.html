@@ -6,14 +6,30 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="specialityForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
+
+        <ng-container *ngIf="specialityForm?.controls">
+
+        <div *ngFor="let formControl of (specialityForm?.controls | keys)">
+
+                <label >Type</label>
+                <input
+                  type="text"
+                  [formControlName]="formControl"
+                  class="form-control">
+
+
+        </div>
+    </ng-container>
+
+        
+        <!-- <div class="form-group" *ngIf="specialityForm?.controls">
             <label for="type">Type</label>
             <input
               type="text"
               id="type"
               formControlName="type"
               class="form-control">
-        </div>
+        </div> -->
         <button class="btn btn-primary" type="submit" [disabled]="!specialityForm.valid">{{ editMode ? 'Update' : 'Add' }}</button>
     </form>
 </div>

@@ -12,15 +12,15 @@ import { UserInfo } from '../model/UserInfo.model';
 import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
 import { User } from '../model/user.model';
+import { APP_HOME } from '../shared/constant/api-constant';
 
 @Injectable()
 export class UserService{
-  _BASEURL:string='http://localhost:8080/SecuredWeb';
 
   constructor(private http: Http) {}
   
   getUsers(){
-    let url = this._BASEURL+"/user/all";
+    let url = APP_HOME+"user/all";
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
@@ -32,7 +32,7 @@ export class UserService{
 
   addUser(user: User){
     console.log(JSON.stringify(user));
-    let url = this._BASEURL+"/user/add";
+    let url = APP_HOME+"user/add";
     return this.http.post(url,user,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));

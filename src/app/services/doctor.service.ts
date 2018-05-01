@@ -12,49 +12,55 @@ import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
 import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
-import { Hospital } from '../model/hospital.model';
 import { Subject } from 'rxjs/Subject';
+import { Doctor } from '../model/doctor.model';
 
 @Injectable()
-export class HospitalService {
+export class DoctorService {
 
-  hospitalChanged= new Subject<Hospital[]>();
+  doctorsChanged= new Subject<Doctor[]>();
   constructor(private http: Http) {}
   
-  getHospitalsSlice()
-  {
-  }
-  getHospitals(){
-    let url = APP_HOME+"hospital/all";
+  getDoctorsByHospital(hospitalId:string){
+    let url = APP_HOME+"doctor/all/hospital/"+hospitalId;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  getHospital(id:number){
-    let url = APP_HOME+"hospital/"+id;
+  getDoctors(){
+    let url = APP_HOME+"doctor/all";
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  addHospital(hospital:Hospital){
-    let url = APP_HOME+"hospital/add";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+  getDoctor(id:number){
+    let url = APP_HOME+"doctor/"+id;
+    return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  updateHospital(hospital:Hospital){
-    let url = APP_HOME+"hospital/update";
-    return this.http.post(url,hospital,this.getRequestOptions())
+  addDoctor(doctor:Doctor){
+    alert(JSON.stringify(doctor));
+    let url = APP_HOME+"doctor/add";
+    return this.http.post(url,JSON.stringify(doctor),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  deleteHospital(id:number){
+
+  updateDoctor(doctor:Doctor){
+    let url = APP_HOME+"doctor/update";
+    return this.http.post(url,doctor,this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  deleteDoctor(id:number){
     debugger
-    let url = APP_HOME+"hospital/delete/"+id;
+    let url = APP_HOME+"doctor/delete/"+id;
     return this.http.delete(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));

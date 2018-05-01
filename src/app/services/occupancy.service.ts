@@ -36,8 +36,8 @@ export class OccupancyService {
   }
 
   deleteOccupancy(id:number){
-    let url = this._BASEURL+"/occupancy/?id="+id;
-    return this.http.get(url,this.getRequestOptions())
+    let url = this._BASEURL+"/occupancy/"+id;
+    return this.http.delete(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
