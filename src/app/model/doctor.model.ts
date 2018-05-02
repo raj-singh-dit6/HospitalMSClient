@@ -12,7 +12,6 @@ export class Doctor{
     user:User;
     active:Boolean;
     department:Department;
-    patients:Patient[];
     hospital:Hospital;
 
     constructor(id:number,description:string,active:Boolean,department:Department,hospital:Hospital,user:User)

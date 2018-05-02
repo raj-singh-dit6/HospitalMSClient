@@ -1,3 +1,6 @@
-<p>
-  patients works!
-</p>
+<div class="row">
+  <button class="btn btn-success" (click)="onNewPatient()">Add New Patient</button>
+</div>
+<div class="row">
+  <app-patient-list [hospitalId]="hospitalId" style="width: 100%;"></app-patient-list>
+</div>

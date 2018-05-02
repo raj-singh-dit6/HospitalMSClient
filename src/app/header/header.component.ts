@@ -31,7 +31,7 @@ export class HeaderComponent {
 
   onNewRegistration()
   { 
-    this.modalService.open(SignupComponent,'');
+    this.modalService.open(SignupComponent,'','');
   }
 
   onSignOut()

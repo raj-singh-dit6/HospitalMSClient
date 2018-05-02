@@ -5,6 +5,7 @@ import { Patient } from "./patient.model";
 export class Room{
 
     id:number;
+    roomInfo:string;
     totalBeds:number;
     remBeds:number;
     occupancy:Occupancy; 
@@ -13,12 +14,11 @@ export class Room{
 	perDayCharge:number ;
     patients:Patient;
 
-    constructor(id:number,totalBeds:number,remBeds:number,occupancy:Occupancy,hospital:Hospital)
+    constructor(id:number,occupancy:Occupancy,hospital:Hospital,roomInfo:string)
     {
         this.id=id;
-        this.totalBeds=totalBeds;
-        this.remBeds=remBeds;
         this.hospital=hospital;
         this.occupancy=occupancy;
+        this.roomInfo=roomInfo;
     } 
 }

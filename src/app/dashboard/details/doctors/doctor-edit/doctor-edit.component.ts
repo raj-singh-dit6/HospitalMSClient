@@ -15,6 +15,7 @@ import { DepartmentService } from '../../../../services/department.service';
 })
 export class DoctorEditComponent implements OnInit {
   @Input() id: any;
+  @Input() id2: any;
   hospitals: Hospital[];
   departments: Department[];
   editMode= false;
@@ -76,7 +77,7 @@ export class DoctorEditComponent implements OnInit {
     }
   }
   
-  createForm(firstName:any='',lastName:any='',description:any='',address:any='',dob:any='',email:any='',contact:any='',hospital:any='',department:any='',active:Boolean=false){
+  createForm(firstName:any='',lastName:any='',description:any='',address:any='',dob:any='',email:any='',contact:any='',hospital:any=this.id2,department:any='',active:Boolean=false){
 
     this.doctorForm = this.formBuilder.group({
       'firstName': new FormControl(firstName, Validators.required),
@@ -103,7 +104,7 @@ export class DoctorEditComponent implements OnInit {
     if (this.editMode) {
       this.doctorService.updateDoctor(doctor).subscribe(result => {
         if (result.success) {
-          this.doctorService.getDoctors().subscribe(result=>{
+          this.doctorService.getDoctorsByHospital(this.id2).subscribe(result=>{
             if(result.total!=0)
             {
               let doctors:Doctor[]=result.data;
@@ -115,7 +116,7 @@ export class DoctorEditComponent implements OnInit {
     } else {
       this.doctorService.addDoctor(doctor).subscribe(result => {
         if (result.success) {
-          this.doctorService.getDoctors().subscribe(result=>{
+          this.doctorService.getDoctorsByHospital(this.id2).subscribe(result=>{
             if(result.total!=0)
             {
               let doctors:Doctor[]=result.data;

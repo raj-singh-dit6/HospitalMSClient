@@ -36,7 +36,7 @@ export class HospitalListComponent implements OnInit,OnDestroy {
   }
   onEditHospital(hospital:Hospital)
   {
-    this.modalService.open(HospitalEditComponent,hospital.id);
+    this.modalService.open(HospitalEditComponent,hospital.id,'');
   }
 
   onDeleteHospital(hospital:Hospital)

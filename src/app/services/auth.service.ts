@@ -47,7 +47,7 @@ export class AuthService {
 
   private handleError(error: Response) {
     console.error(error);
-
+    alert("Bad Credentials");
     return Observable.throw(error.json().error || 'Server error');
   }
 

@@ -15,9 +15,7 @@ export class OccupancyEditComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,private occupService:OccupancyService) { }
 
   ngOnInit() {
-    if(this.id!=""){
-      this.editMode=true;
-    }
+    this.editMode = this.id!=null && this.id!='';
     this.initForm();
    
   }

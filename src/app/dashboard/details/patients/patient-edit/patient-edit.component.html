@@ -1,0 +1,94 @@
+<div class="modal-header">
+  <h4 class="modal-title">Patient</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" *ngIf="patientForm?.controls?.hospital">
+            <label for="hospital">Hospital</label>
+            <select
+              id="hospital"
+              formControlName="hospital"
+              class="form-control">
+              <option></option>
+              <option  *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
+            </select>
+            <span class="help-block" *ngIf="!patientForm.get('hospital').valid && patientForm.get('hospital').touched">Please select a hospital.</span>
+      </div>
+      <div class="form-group" *ngIf="patientForm?.controls?.firstName">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            class="form-control">
+            <span class="help-block" *ngIf="!patientForm.get('firstName').valid && patientForm.get('firstName').touched">Please enter a first name.</span>
+      </div>
+      <div class="form-group" *ngIf="patientForm?.controls?.lastName">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          class="form-control">
+      </div>
+      <div class="form-group" *ngIf="patientForm?.controls?.email">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          formControlName="email"
+          class="form-control">
+          <span class="help-block" *ngIf="!patientForm.get('email').valid && patientForm.get('email').touched">Please enter your email address.</span>
+      </div>
+      <!-- <div class="form-group" *ngIf="patientForm?.controls?.dob">
+        <div class="input-group">
+            <label for="dob">DOB</label>
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                name="dob" ngbDatepicker #d="ngbDatepicker" formControlName="dob">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="../../../assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+            </button>
+          </div>
+        </div>
+        <span class="help-block" *ngIf="!patientForm.get('dob').valid && patientForm.get('dob').touched">Please enter your date of birth.</span>
+      </div> -->
+      <div class="form-group" *ngIf="patientForm?.controls?.address">
+        <label for="address">Address</label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          class="form-control">
+          <span class="help-block" *ngIf="!patientForm.get('address').valid && patientForm.get('address').touched">Please enter your address.</span>
+      </div>
+      <div class="form-group" *ngIf="patientForm?.controls?.contact">
+          <label for="contact">Contact</label>
+          <input
+            type="text"
+            id="contact"
+            formControlName="contact"
+            class="form-control">
+            <span class="help-block" *ngIf="!patientForm.get('contact').valid && patientForm.get('contact').touched">Please enter your contact number.</span>
+      </div>
+      <div class="form-group" *ngIf="patientForm?.controls?.patientStatus">
+        <label for="patientStatus">Patient Status</label>
+        <select
+          id="patientStatus"
+          formControlName="patientStatus"
+          class="form-control">
+          <option></option>
+          <option  *ngFor="let patientStatus of patientStatuses" [value]="patientStatus.id">{{patientStatus.name}}</option>
+        </select>
+        <span class="help-block" *ngIf="!patientForm.get('patientStatus').valid && patientForm.get('patientStatus').touched">Please select a Patient Status.</span>
+      </div>    
+       <!-- <span class="help-block" *ngIf="!patientForm.valid && patientForm.touched">Please enter valid data.</span> -->
+       <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+      </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

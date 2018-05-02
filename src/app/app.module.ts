@@ -3,7 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -49,7 +49,6 @@ import { UserListComponent } from './dashboard/details/users/user-list/user-list
 import { UserEditComponent } from './dashboard/details/users/user-edit/user-edit.component';
 import { HospitalListComponent } from './dashboard/admin/hospitals/hospital-list/hospital-list.component';
 import { OccupancyComponent } from './dashboard/details/occupancies/occupancy-list/occupancy/occupancy.component';
-import { RoomComponent } from './dashboard/details/rooms/room-list/room/room.component';
 import { UserComponent } from './dashboard/details/users/user-list/user/user.component';
 import { DetailsComponent } from './dashboard/details/details.component';
 import { SpecialitiesComponent } from './dashboard/admin/specialities/specialities.component';
@@ -67,6 +66,19 @@ import { DoctorListComponent } from './dashboard/details/doctors/doctor-list/doc
 import { DoctorEditComponent } from './dashboard/details/doctors/doctor-edit/doctor-edit.component';
 import { KeysPipe } from './shared/keys.pipe';
 import { DepartmentService } from './services/department.service';
+import { PatientEditComponent } from './dashboard/details/patients/patient-edit/patient-edit.component';
+import { PatientListComponent } from './dashboard/details/patients/patient-list/patient-list.component';
+import { PatientStatus } from './model/patientStatus.model';
+import { PatientStatusService } from './services/patientStatusService.service';
+
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FintTheme from 'fusioncharts/themes/fusioncharts.theme.fint';
+import { FusionChartsModule } from 'angular4-fusioncharts';
+import { SimpleChartComponent } from './dashboard/simple-chart/simple-chart.component';
+import { PieChartComponent } from './dashboard/pie-chart/pie-chart.component';
+FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,7 +107,6 @@ import { DepartmentService } from './services/department.service';
     OccupanciesComponent,
     OccupancyListComponent,
     OccupancyEditComponent,
-    RoomComponent,
     RoomsComponent,
     RoomEditComponent,
     RoomListComponent,
@@ -113,7 +124,10 @@ import { DepartmentService } from './services/department.service';
     DoctorListComponent,
     DoctorEditComponent,
     KeysPipe,
-    
+    PatientEditComponent,
+    PatientListComponent,
+    SimpleChartComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -122,11 +136,12 @@ import { DepartmentService } from './services/department.service';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
+    FusionChartsModule,
     NgbModule.forRoot()
     
   ],
-  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService],
-  entryComponents: [HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent],
+  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService],
+  entryComponents: [HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent],
   bootstrap: [AppComponent]
   
 })

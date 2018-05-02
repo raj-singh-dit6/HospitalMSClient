@@ -17,6 +17,6 @@ export class SpecialitiesComponent implements OnInit {
 
   onNewSpeciality()
   {
-     this.modalService.open(SpecialityEditComponent,'')
+     this.modalService.open(SpecialityEditComponent,'','')
   }
 }

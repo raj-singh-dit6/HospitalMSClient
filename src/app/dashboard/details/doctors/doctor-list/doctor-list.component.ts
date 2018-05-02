@@ -32,7 +32,7 @@ export class DoctorListComponent implements OnInit {
   }
   onEditDoctor(doctor:Doctor)
   {
-    this.modalService.open(DoctorEditComponent,doctor.id);
+    this.modalService.open(DoctorEditComponent,doctor.id,this.hospitalId);
   }
 
   onDeleteDoctor(doctor:Doctor)
@@ -41,7 +41,7 @@ export class DoctorListComponent implements OnInit {
     this.doctorService.deleteDoctor(doctor.id).subscribe(result=>{
     if(result.success)
     {
-      this.doctorService.getDoctors().subscribe(result=>{
+      this.doctorService.getDoctorsByHospital(this.hospitalId).subscribe(result=>{
         if(result.total!=0)
         {
           let doctors:Doctor[]=result.data;

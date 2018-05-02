@@ -36,7 +36,7 @@ export class SpecialityListComponent implements OnInit, OnDestroy {
 
   onEditSpeciality(speciality:Speciality)
   {
-    this.modalService.open(SpecialityEditComponent,speciality.id)
+    this.modalService.open(SpecialityEditComponent,speciality.id,'')
   }
 
   onDeleteSpeciality(speciality:Speciality)

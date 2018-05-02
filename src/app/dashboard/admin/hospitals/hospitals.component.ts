@@ -18,7 +18,7 @@ export class HospitalsComponent implements OnInit {
 
   onNewHospital()
   {
-     this.modalService.open( HospitalEditComponent,'');
+     this.modalService.open( HospitalEditComponent,'','');
 
   }
 

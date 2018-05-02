@@ -1,3 +1,58 @@
-<p>
-  room-edit works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Room</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" *ngIf="roomForm?.controls?.hospital">
+              <label for="hospital">Hospital</label>
+              <select
+                id="hospital"
+                formControlName="hospital"
+                class="form-control">
+                <option></option>
+                <option  *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
+              </select>
+              <span class="help-block" *ngIf="!roomForm.get('hospital').valid && roomForm.get('hospital').touched">Please select a hospital.</span>
+        </div>
+        <div class="form-group" *ngIf="roomForm?.controls?.occupancy">
+            <label for="occupancy">Occupancy</label>
+            <select
+              id="occupancy"
+              formControlName="occupancy"
+              class="form-control">
+              <option></option>
+              <option  *ngFor="let occupancy of occupancies" [value]="occupancy.id">{{occupancy.type}}</option>
+            </select>
+            <span class="help-block" *ngIf="!roomForm.get('occupancy').valid && roomForm.get('occupancy').touched">Please select a occupancy.</span>
+      </div>
+      <div class="form-group" *ngIf="roomForm?.controls?.roomInfo">
+        <label for="roomInfo">Room Info</label>
+        <input
+          type="text"
+          id="roomInfo"
+          formControlName="roomInfo"
+          class="form-control">
+          <span class="help-block" *ngIf="!roomForm.get('roomInfo').valid && roomForm.get('roomInfo').touched">Please enter room info eg.("ROOM-101 Floor-1").</span>
+    </div>
+    <div class="form-group" *ngIf="roomForm?.controls?.perDayCharge">
+        <label for="firstName">Charge(Rs./day)</label>
+        <div class="input-group">
+            <span class="input-group-addon">Rs</span>
+            <input 
+            type="text"
+            formControlName="roomInfo" 
+            class="form-control">
+            <span class="help-block" *ngIf="!roomForm.get('perDayCharge').valid && roomForm.get('perDayCharge').touched">Please enter a charge.</span>
+        </div>  
+    </div>    
+         <!-- <span class="help-block" *ngIf="!roomForm.valid && roomForm.touched">Please enter valid data.</span> -->
+         <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+  

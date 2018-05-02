@@ -12,23 +12,14 @@ import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 })
 export class DoctorsComponent implements OnInit {
   hospitalId:string;
-  doctors:Doctor[];
   constructor(private doctorService:DoctorService,private route:ActivatedRoute,private modalService:ModalService) { 
     this.hospitalId = route.snapshot.paramMap.get('hospitalId');
   }
 
   ngOnInit() {
-    
-    this.doctorService.getDoctorsByHospital(this.hospitalId).subscribe(result=>{
-      if(result.total!=0)
-      {
-        this.doctors=result.data;
-      }
-    });
-
   }
   onNewDoctor()
   {
-     this.modalService.open( DoctorEditComponent,'');
+     this.modalService.open( DoctorEditComponent,'',this.hospitalId);
   }
 }

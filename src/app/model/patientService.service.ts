@@ -5,7 +5,7 @@ import { Doctor } from "./doctor.model";
 import { PatientStatus } from "./patientStatus.model";
 import { User } from "./user.model";
 
-export class Patient{
+export class PatientService{
 
     id:number;
     user:User;
@@ -17,10 +17,9 @@ export class Patient{
     attendedDate:Date;
     patientStatus:PatientStatus;
 
-    constructor(id:number,user:User,hospital:Hospital,patientStatus:PatientStatus)
+    constructor(id:number,user:User,hospital:Hospital,patientStatus:PatientStatus,statusDate:Date)
     {
         this.user=user;
         this.hospital=hospital;
-        this.patientStatus=patientStatus;
     } 
 }

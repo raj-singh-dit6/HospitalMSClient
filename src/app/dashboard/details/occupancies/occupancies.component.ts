@@ -17,7 +17,7 @@ export class OccupanciesComponent implements OnInit {
 
   onAddOccupancy()
   {
-    this.modalService.open(OccupancyEditComponent,'');
+    this.modalService.open(OccupancyEditComponent,'','');
   }
 
 }

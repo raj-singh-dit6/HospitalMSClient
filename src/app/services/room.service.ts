@@ -35,7 +35,6 @@ export class RoomService {
       .catch((err: Response) => this.handleError(err));
   }
 
-
   getRoom(id:number){
     let url = APP_HOME+"room/"+id;
     return this.http.get(url,this.getRequestOptions())
@@ -46,7 +45,6 @@ export class RoomService {
   
 
   addRoom(room:Room){
-    alert(JSON.stringify(room));
     let url = APP_HOME+"room/add";
     return this.http.post(url,JSON.stringify(room),this.getRequestOptions())
       .map((res: Response) => res.json())
@@ -54,9 +52,9 @@ export class RoomService {
   }
 
 
-  updateroom(room:Room){
+  updateRoom(room:Room){
     let url = APP_HOME+"room/update";
-    return this.http.post(url,room,this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(room),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
