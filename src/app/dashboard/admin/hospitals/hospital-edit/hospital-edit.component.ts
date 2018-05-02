@@ -49,7 +49,7 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
     let name='';
     let address='';
     let contact:number;
-    let active:Boolean=false;
+    let active:Boolean;
     let specialityId:number;
     if(this.editMode){
       let hospital:Hospital;
@@ -85,7 +85,7 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
   }
   onSubmit(){
     const specialityId=this.hospitalForm.get('speciality').value;
-    const speciality= this.specialities.find(x=>x.id===specialityId);
+    const speciality= this.specialities.find(x=>x.id==specialityId);
     const updateHospital:Hospital=this.hospitalForm.value; 
     const hospital:Hospital= new Hospital(this.id,updateHospital.name,updateHospital.address,speciality,updateHospital.contact,updateHospital.active);
     if(this.editMode){

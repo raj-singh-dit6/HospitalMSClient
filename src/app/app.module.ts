@@ -66,6 +66,7 @@ import { AdminHeaderComponent } from './dashboard/details/admin-header/admin-hea
 import { DoctorListComponent } from './dashboard/details/doctors/doctor-list/doctor-list.component';
 import { DoctorEditComponent } from './dashboard/details/doctors/doctor-edit/doctor-edit.component';
 import { KeysPipe } from './shared/keys.pipe';
+import { DepartmentService } from './services/department.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,7 +125,7 @@ import { KeysPipe } from './shared/keys.pipe';
     NgbModule.forRoot()
     
   ],
-  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService],
+  providers: [ModalService,AuthService,ShoppingListService,RecipeService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService],
   entryComponents: [HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent],
   bootstrap: [AppComponent]
   

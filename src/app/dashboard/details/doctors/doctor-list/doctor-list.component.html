@@ -3,22 +3,24 @@
       <th scope="col">Doctor Name</th>
       <th scope="col">Description</th>
       <th scope="col">Contact No.</th>
+      <th scope="col">Email</th>
       <th scope="col">Hospital Name</th>
       <th scope="col">Active Status</th>
       <th scope="col"></th>
       <th scope="col"></th>
   </thead>
   <tbody>
-      <tr *ngFor="let hospital of hospitals" scope="row">
+      <tr *ngFor="let doctor of doctors" scope="row">
           <td scope="col">{{doctor.user.firstName}} {{doctor.user.lastName}}</td>
           <td scope="col">{{doctor.description}}</td>
           <td scope="col">{{doctor.user.contact}}</td>
+          <td scope="col">{{doctor.user.email}}</td>
           <td scope="col">{{doctor.hospital.name}}</td>
           <td scope="col">{{doctor.active}}</td>
           <td scope="col">
-              <button class="btn btn-primary" (click)="onEditHospital(hospital)">Edit</button>
+              <button class="btn btn-primary" (click)="onEditDoctor(doctor)">Edit</button>
           <td scope="col">
-              <button class="btn btn-secondary" (click)="onDeleteHospital(hospital)">Delete</button>
+              <button class="btn btn-secondary" (click)="onDeleteDoctor(doctor)">Delete</button>
           </td>
       </tr>
       

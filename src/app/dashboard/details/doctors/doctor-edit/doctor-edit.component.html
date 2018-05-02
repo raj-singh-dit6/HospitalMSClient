@@ -6,36 +6,29 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.hospital">
             <label for="hospital">Hospital</label>
             <select
               id="hospital"
               formControlName="hospital"
               class="form-control">
               <option></option>
-              <option  *ngFor="let hospital of hospitals" id="{{hospital.id}}" [ngValue]="hospital">{{hospital.name}}</option>
+              <option  *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
             </select>
             <span class="help-block" *ngIf="!doctorForm.get('hospital').valid && doctorForm.get('hospital').touched">Please select a hospital.</span>
       </div>
-      <div class="form-group">
-        <label for="department">Department</label>
+      <div class="form-group" *ngIf="doctorForm?.controls?.department">
+        <label for="department" >Department</label>
         <select
           id="department"
           formControlName="department"
           class="form-control">
-          <option></option>
-          <option id="1" value="Cardiology">Cardiology</option>
-          <option id="2" value="Critical care">Critical care</option>
-          <option id="3" value="Gastroenterology">Gastroenterology</option>
-          <option id="4" value="Haematology">Haematology</option>
-          <option id="5" value="Nephrology">Nephrology</option>
-          <option id="6" value="Nutrition and dietetics">Nutrition and dietetics</option>
-          <option id="7" value="Oncology">Oncology</option>
-          <option id="8" value="Ophthalmology">Ophthalmology</option>
-        </select>
+            <option></option>
+            <option *ngFor ="let department of departments" [value]="department.id">{{department.name}}</option>
+          </select>
         <span class="help-block" *ngIf="!doctorForm.get('hospital').valid && doctorForm.get('hospital').touched">Please select a hospital.</span>
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.firstName">
           <label for="firstName">First Name</label>
           <input
             type="text"
@@ -44,7 +37,7 @@
             class="form-control">
             <span class="help-block" *ngIf="!doctorForm.get('firstName').valid && doctorForm.get('firstName').touched">Please enter a first name.</span>
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.lastName">
         <label for="lastName">Last Name</label>
         <input
           type="text"
@@ -52,7 +45,7 @@
           formControlName="lastName"
           class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.description">
         <label for="description">Description</label>
         <input
           type="text"
@@ -60,7 +53,7 @@
           formControlName="description"
           class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.email">
         <label for="email">Email</label>
         <input
           type="text"
@@ -69,7 +62,7 @@
           class="form-control">
           <span class="help-block" *ngIf="!doctorForm.get('email').valid && doctorForm.get('email').touched">Please enter your email address.</span>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group" *ngIf="doctorForm?.controls?.dob">
         <div class="input-group">
             <label for="dob">DOB</label>
           <input class="form-control" placeholder="yyyy-mm-dd"
@@ -81,8 +74,17 @@
           </div>
         </div>
         <span class="help-block" *ngIf="!doctorForm.get('dob').valid && doctorForm.get('dob').touched">Please enter your date of birth.</span>
+      </div> -->
+      <div class="form-group" *ngIf="doctorForm?.controls?.address">
+        <label for="address">address</label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          class="form-control">
+          <span class="help-block" *ngIf="!doctorForm.get('address').valid && doctorForm.get('address').touched">Please enter your address.</span>
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="doctorForm?.controls?.contact">
           <label for="contact">Contact</label>
           <input
             type="text"
@@ -91,8 +93,13 @@
             class="form-control">
             <span class="help-block" *ngIf="!doctorForm.get('contact').valid && doctorForm.get('contact').touched">Please enter your contact number.</span>
       </div>
-       <span class="help-block" *ngIf="!doctorForm.valid">Please enter valid data.</span>
-       <button class="btn btn-primary" type="submit" [disabled]="!doctorForm.valid">Add</button>
+        <div class="form-group" *ngIf="doctorForm?.controls?.active">
+        <label class="btn-secondary" ngbButtonLabel>
+            <input type="checkbox" formControlName="active" ngbButton> Active
+        </label>
+        </div>
+       <!-- <span class="help-block" *ngIf="!doctorForm.valid && doctorForm.touched">Please enter valid data.</span> -->
+       <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
       </form>
 </div>
 <div class="modal-footer">

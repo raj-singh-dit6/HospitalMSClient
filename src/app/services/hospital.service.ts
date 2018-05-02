@@ -47,7 +47,7 @@ export class HospitalService {
 
   updateHospital(hospital:Hospital){
     let url = APP_HOME+"hospital/update";
-    return this.http.post(url,hospital,this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
