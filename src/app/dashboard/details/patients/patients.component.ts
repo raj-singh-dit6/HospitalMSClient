@@ -14,7 +14,6 @@ export class PatientsComponent implements OnInit {
 
   @Input() hospitalId:string;
   constructor(private patientService:PatientService,private route:ActivatedRoute,private modalService:ModalService) { 
-    // this.hospitalId = route.snapshot.paramMap.get('hospitalId');
   }
 
   ngOnInit() {

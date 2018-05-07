@@ -6,17 +6,6 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
-      <div class="form-group" *ngIf="patientForm?.controls?.hospital">
-            <label for="hospital">Hospital</label>
-            <select
-              id="hospital"
-              formControlName="hospital"
-              class="form-control">
-              <option></option>
-              <option  *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
-            </select>
-            <span class="help-block" *ngIf="!patientForm.get('hospital').valid && patientForm.get('hospital').touched">Please select a hospital.</span>
-      </div>
       <div class="form-group" *ngIf="patientForm?.controls?.firstName">
           <label for="firstName">First Name</label>
           <input
@@ -24,7 +13,7 @@
             id="firstName"
             formControlName="firstName"
             class="form-control">
-            <span class="help-block" *ngIf="!patientForm.get('firstName').valid && patientForm.get('firstName').touched">Please enter a first name.</span>
+            <span class="help-block" *ngIf="!patientForm.get('firstName').valid && patientForm.get('firstName').touched">Please enter first name.</span>
       </div>
       <div class="form-group" *ngIf="patientForm?.controls?.lastName">
         <label for="lastName">Last Name</label>
@@ -41,7 +30,7 @@
           id="email"
           formControlName="email"
           class="form-control">
-          <span class="help-block" *ngIf="!patientForm.get('email').valid && patientForm.get('email').touched">Please enter your email address.</span>
+          <span class="help-block" *ngIf="!patientForm.get('email').valid && patientForm.get('email').touched">Please enter email address.</span>
       </div>
       <!-- <div class="form-group" *ngIf="patientForm?.controls?.dob">
         <div class="input-group">
@@ -63,7 +52,7 @@
           id="address"
           formControlName="address"
           class="form-control">
-          <span class="help-block" *ngIf="!patientForm.get('address').valid && patientForm.get('address').touched">Please enter your address.</span>
+          <span class="help-block" *ngIf="!patientForm.get('address').valid && patientForm.get('address').touched">Please enter address.</span>
       </div>
       <div class="form-group" *ngIf="patientForm?.controls?.contact">
           <label for="contact">Contact</label>

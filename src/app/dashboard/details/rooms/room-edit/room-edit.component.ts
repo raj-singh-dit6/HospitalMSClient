@@ -16,7 +16,7 @@ import { Room } from '../../../../model/room.model';
 export class RoomEditComponent implements OnInit {
   @Input() id: any;
   @Input() id2: any;
-  hospitals: Hospital[];
+  hospital: Hospital;
   occupancies: Occupancy[];
   editMode= false;
   roomForm: FormGroup;
@@ -26,10 +26,10 @@ export class RoomEditComponent implements OnInit {
 
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
-    this.hospitalService.getHospitals().subscribe(result => {
+    this.hospitalService.getHospital(this.id2).subscribe(result => {
       if(result && result.total!=0)
       {
-        this.hospitals = result.data;
+        this.hospital = result.data;
       }
     });
 
@@ -47,7 +47,6 @@ export class RoomEditComponent implements OnInit {
     this.roomForm = this.formBuilder.group({});
     let roomInfo = '';
     let perDayCharge :number;
-    let hospital: number;
     let occupancy : number;
     if (this.editMode) {
       let room: Room;
@@ -56,9 +55,8 @@ export class RoomEditComponent implements OnInit {
           room = result.data
           roomInfo = room.roomInfo;
           perDayCharge   = room.perDayCharge;
-          hospital = room.hospital.id;
           occupancy = room.occupancy.id;
-          this.createForm(roomInfo,hospital,occupancy,perDayCharge);
+          this.createForm(roomInfo,occupancy,perDayCharge);
         }
       });
     }else{
@@ -66,10 +64,9 @@ export class RoomEditComponent implements OnInit {
     }
   }
   
-createForm(roomInfo:any='',hospital:any=this.id2,occupancy:any='',perDayCharge:any=0){
+createForm(roomInfo:any='',occupancy:any='',perDayCharge:any=0){
 
     this.roomForm = this.formBuilder.group({
-      'hospital': new FormControl(hospital, Validators.required),
       'occupancy': new FormControl(occupancy, Validators.required),
       'roomInfo': new FormControl(roomInfo, Validators.required),
       'perDayCharge': new FormControl(perDayCharge, 
@@ -80,10 +77,9 @@ createForm(roomInfo:any='',hospital:any=this.id2,occupancy:any='',perDayCharge:a
   onSubmit() {
     const hospId=this.roomForm.get('hospital').value;
     const occupancyId=this.roomForm.get('occupancy').value;
-    const hospital= this.hospitals.find(x=>x.id==hospId);
     const updateRoom:any=this.roomForm.value;
     const occupancy=this.occupancies.find(x=>x.id==occupancyId);
-    const room:Room=new Room(this.id,occupancy,hospital,updateRoom.roomInfo,updateRoom.perDayCharge);
+    const room:Room=new Room(this.id,occupancy,this.hospital,updateRoom.roomInfo,updateRoom.perDayCharge);
     if (this.editMode) {
       this.roomService.updateRoom(room).subscribe(result => {
         if (result.success) {

@@ -61,7 +61,6 @@ import { PatientService } from './services/patient.service';
 import { DoctorService } from './services/doctor.service';
 import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
 import { PatientsComponent } from './dashboard/details/patients/patients.component';
-import { AdminHeaderComponent } from './dashboard/details/admin-header/admin-header.component';
 import { DoctorListComponent } from './dashboard/details/doctors/doctor-list/doctor-list.component';
 import { DoctorEditComponent } from './dashboard/details/doctors/doctor-edit/doctor-edit.component';
 import { KeysPipe } from './shared/keys.pipe';
@@ -83,6 +82,10 @@ import { HospHeadComponent } from './dashboard/details/hosp-head/hosp-head.compo
 import { HospHeadEditComponent } from './dashboard/details/hosp-head/hosp-head-edit/hosp-head-edit.component';
 import { ConfirmContentComponent } from './shared/confirm-content/confirm-content.component';
 import { ConfirmService } from './shared/confirm-content/confirm.service';
+import { HeadPatientsComponent } from './dashboard/head/head-patients/head-patients.component';
+import { HeadRoomsComponent } from './dashboard/head/head-rooms/head-rooms.component';
+import { HeadDetailsComponent } from './dashboard/head-details/head-details.component';
+import { HeadDoctorsComponent } from './dashboard/head/head-doctors/head-doctors.component';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 @NgModule({
@@ -120,7 +123,6 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     UserListComponent,
     UserEditComponent,
     DetailsComponent,
-    AdminHeaderComponent,
     SpecialitiesComponent,
     SpecialityEditComponent,
     SpecialityListComponent,
@@ -135,7 +137,11 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     PieChartComponent,
     HospHeadComponent,
     HospHeadEditComponent,
-    ConfirmContentComponent
+    ConfirmContentComponent,
+    HeadPatientsComponent,
+    HeadRoomsComponent,
+    HeadDetailsComponent,
+    HeadDoctorsComponent
   ],
   imports: [
     BrowserModule,

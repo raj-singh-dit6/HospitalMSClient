@@ -17,7 +17,7 @@ import { PatientStatusService } from '../../../../services/patientStatusService.
 export class PatientEditComponent implements OnInit {
   @Input() id: any;
   @Input() id2: any;
-  hospitals: Hospital[];
+  hospital: Hospital;
   patientStatuses: PatientStatus[];
   editMode= false;
   patientForm: FormGroup;
@@ -27,10 +27,10 @@ export class PatientEditComponent implements OnInit {
 
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
-    this.hospitalService.getHospitals().subscribe(result => {
+    this.hospitalService.getHospital(this.id2).subscribe(result => {
       if(result && result.total!=0)
       {
-        this.hospitals = result.data;
+        this.hospital = result.data;
       }
     });
 
@@ -52,7 +52,6 @@ export class PatientEditComponent implements OnInit {
     let dob :Date;
     let contact: number;
     let email = '';
-    let hospital: number;
     let patientStatus : number;
     if (this.editMode) {
       let patient: Patient;
@@ -65,9 +64,8 @@ export class PatientEditComponent implements OnInit {
           address = patient.user.address;
           email = patient.user.email;
           contact = patient.user.contact;
-          hospital = patient.hospital.id;
           patientStatus = patient.patientStatus.id;
-          this.createForm(firstName,lastName,address,dob,email,contact,hospital,patientStatus);
+          this.createForm(firstName,lastName,address,dob,email,contact,patientStatus);
         }
       });
     }else{
@@ -75,7 +73,7 @@ export class PatientEditComponent implements OnInit {
     }
   }
   
-  createForm(firstName:any='',lastName:any='',address:any='',dob:any='',email:any='',contact:any='',hospital:any=this.id2,patientStatus:any=''){
+  createForm(firstName:any='',lastName:any='',address:any='',dob:any='',email:any='',contact:any='',patientStatus:any=''){
 
     this.patientForm = this.formBuilder.group({
       'firstName': new FormControl(firstName, Validators.required),
@@ -84,20 +82,17 @@ export class PatientEditComponent implements OnInit {
       'email': new FormControl(email, Validators.required),
       'contact': new FormControl(contact, [Validators.required,
                          Validators.pattern(/^[1-9]+[0-9]*$/)]),
-      'hospital': new FormControl(hospital, Validators.required),
       'patientStatus': new FormControl(patientStatus, Validators.required),
     });
   }
 
   onSubmit() {
     
-    const hospId=this.patientForm.get('hospital').value;
     const patientStatusId=this.patientForm.get('patientStatus').value;
-    const hospital= this.hospitals.find(x=>x.id==hospId);
     const updatePatient:any=this.patientForm.value;
-    const user:User= new User(null,null,updatePatient.firstName,updatePatient.lastName,updatePatient.email,null,hospital,updatePatient.address,updatePatient.contact);
+    const user:User= new User(null,null,updatePatient.firstName,updatePatient.lastName,updatePatient.email,null,this.hospital,updatePatient.address,updatePatient.contact);
     const patientStatus=this.patientStatuses.find(x=>x.id==patientStatusId);
-    const patient:Patient=new Patient(this.id,user,hospital,patientStatus);
+    const patient:Patient=new Patient(this.id,user,this.hospital,patientStatus);
     if (this.editMode) {
       this.patientService.updatePatient(patient).subscribe(result => {
         if (result.success) {

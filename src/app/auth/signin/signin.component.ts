@@ -30,15 +30,16 @@ export class SigninComponent implements OnInit {
         let currentUser:UserInfo= result;
         console.log(currentUser);
         let roles:Role[]=currentUser.roles;
-        if(roles.find(role=>role.type==="ADMIN")!=null){
-          this.router.navigateByUrl('/dashboard');
-        }else if(roles.find(role=>role.type==="HEAD")!=null){
-          this.router.navigate(['/head',currentUser.hospital.id]);
-        }else if(roles.find(role=>role.type==="DOCTOR")!=null){
-          this.router.navigate(['/doctor',currentUser.hospital.id]);
-        }else if(roles.find(role=>role.type==="PATIENT")!=null){
-          this.router.navigate(['/patient',currentUser.hospital.id]);
-        }
+        // if(roles.find(role=>role.type==="ADMIN")!=null){
+        //   this.router.navigateByUrl('/dashboard');
+        // }else if(roles.find(role=>role.type==="HEAD")!=null){
+        //   this.router.navigate(['/head',currentUser.hospital.id]);
+        // }else if(roles.find(role=>role.type==="DOCTOR")!=null){
+        //   this.router.navigate(['/doctor',currentUser.hospital.id]);
+        // }else if(roles.find(role=>role.type==="PATIENT")!=null){
+        //   this.router.navigate(['/patient',currentUser.hospital.id]);
+        // }
+        this.router.navigateByUrl('/dashboard');
       } else {
           alert("login failed")
       }

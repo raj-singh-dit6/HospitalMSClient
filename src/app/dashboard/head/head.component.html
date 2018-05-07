@@ -1,3 +1,39 @@
-<p>
-  head works!
-</p>
+<div class="row">
+    <div class="col-sm-6">
+      <app-simple-chart></app-simple-chart>
+      <hr class="d-sm-none">
+    </div>
+    <div class="col-sm-6">
+      <app-simple-chart [chartFor]="chartFor"></app-simple-chart>
+    </div>
+</div>
+<hr>
+<div class="row">
+  <ngb-tabset style="width:100%;">
+    <ngb-tab>
+      <ng-template ngbTabTitle>Rooms</ng-template>
+      <ng-template ngbTabContent>
+        <hr>
+        <app-rooms [hospitalId]="hospitalId"></app-rooms>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle>Patients</ng-template>
+      <ng-template ngbTabContent>
+        <hr>
+        <app-patients [hospitalId]="hospitalId"></app-patients>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle>Doctors</ng-template>
+      <ng-template ngbTabContent>
+        <hr>
+        <app-doctors [hospitalId]="hospitalId"></app-doctors>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+      
+
+

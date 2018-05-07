@@ -13,7 +13,6 @@ export class RoomsComponent implements OnInit {
 
   @Input() hospitalId:string;
   constructor(private roomService:RoomService,private route:ActivatedRoute,private modalService:ModalService,private router:Router) { 
-    this.hospitalId = route.snapshot.paramMap.get('hospitalId');
   }
 
   ngOnInit() {

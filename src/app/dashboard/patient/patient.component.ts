@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Hospital } from '../../model/hospital.model';
 
 @Component({
   selector: 'app-patient',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-
+  @Input() hospital:Hospital;
   constructor() { }
 
   ngOnInit() {

@@ -16,7 +16,7 @@ import { DepartmentService } from '../../../../services/department.service';
 export class DoctorEditComponent implements OnInit {
   @Input() id: any;
   @Input() id2: any;
-  hospitals: Hospital[];
+  hospital: Hospital;
   departments: Department[];
   editMode= false;
   doctorForm: FormGroup;
@@ -26,10 +26,10 @@ export class DoctorEditComponent implements OnInit {
 
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
-    this.hospitalService.getHospitals().subscribe(result => {
+    this.hospitalService.getHospital(this.id2).subscribe(result => {
       if(result && result.total!=0)
       {
-        this.hospitals = result.data;
+        this.hospital = result.data;
       }
     });
 
@@ -52,7 +52,6 @@ export class DoctorEditComponent implements OnInit {
     let contact: number;
     let email = '';
     let description = '';
-    let hospital: number;
     let department:number;
     let active:Boolean;
     if (this.editMode) {
@@ -66,12 +65,11 @@ export class DoctorEditComponent implements OnInit {
           address = doctor.user.address;
           email = doctor.user.email;
           contact = doctor.user.contact;
-          hospital = doctor.hospital.id;
           department = doctor.department.id;
           description = doctor.description;
           active = doctor.active;
             
-          this.createForm(firstName,lastName,description,address,dob,email,contact,hospital,department,active);
+          this.createForm(firstName,lastName,description,address,dob,email,contact,department,active);
         }
       });
     }else{
@@ -79,13 +77,12 @@ export class DoctorEditComponent implements OnInit {
     }
   }
   
-  createForm(firstName:any='',lastName:any='',description:any='',address:any='',dob:any='',email:any='',contact:any='',hospital:any=this.id2,department:any='',active:Boolean=false){
+  createForm(firstName:any='',lastName:any='',description:any='',address:any='',dob:any='',email:any='',contact:any='',department:any='',active:Boolean=false){
 
     this.doctorForm = this.formBuilder.group({
       'firstName': new FormControl(firstName, Validators.required),
       'lastName': new FormControl(lastName),
       'description': new FormControl(description),
-      'hospital': new FormControl(hospital, Validators.required),
       'department': new FormControl(department, Validators.required),
       'address': new FormControl(address, Validators.required),
       'email': new FormControl(email, Validators.required),
@@ -96,13 +93,11 @@ export class DoctorEditComponent implements OnInit {
   }
 
   onSubmit() {
-    const hospId=this.doctorForm.get('hospital').value;
     const depId=this.doctorForm.get('department').value;
-    const hospital= this.hospitals.find(x=>x.id==hospId);
     const updateDoctor:any=this.doctorForm.value;
-    const user:User= new User(null,null,updateDoctor.firstName,updateDoctor.lastName,updateDoctor.email,null,hospital,updateDoctor.address,updateDoctor.contact);
+    const user:User= new User(null,null,updateDoctor.firstName,updateDoctor.lastName,updateDoctor.email,null,this.hospital,updateDoctor.address,updateDoctor.contact);
     const department=this.departments.find(x=>x.id==depId);
-    const doctor:Doctor=new Doctor(this.id,updateDoctor.description,updateDoctor.active,department,hospital,user);
+    const doctor:Doctor=new Doctor(this.id,updateDoctor.description,updateDoctor.active,department,this.hospital,user);
     if (this.editMode) {
       this.doctorService.updateDoctor(doctor).subscribe(result => {
         if (result.success) {

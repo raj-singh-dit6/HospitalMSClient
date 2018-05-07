@@ -13,7 +13,7 @@ import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 export class DoctorsComponent implements OnInit {
   @Input() hospitalId:string;
   constructor(private doctorService:DoctorService,private route:ActivatedRoute,private modalService:ModalService) { 
-    // this.hospitalId = route.snapshot.paramMap.get('hospitalId');
+  
   }
 
   ngOnInit() {

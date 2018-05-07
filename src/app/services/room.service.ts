@@ -21,7 +21,7 @@ export class RoomService {
   roomsChanged= new Subject<Room[]>();
   constructor(private http: Http) {}
   
-  getRoomsByHospital(hospitalId:string){
+  getRoomsByHospital(hospitalId:any){
     let url = APP_HOME+"room/all/hospital/"+hospitalId;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())

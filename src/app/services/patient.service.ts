@@ -21,7 +21,7 @@ export class PatientService {
   patientsChanged= new Subject<Patient[]>();
   constructor(private http: Http) {}
   
-  getPatientsByHospital(hospitalId:string){
+  getPatientsByHospital(hospitalId:any){
     let url = APP_HOME+"patient/all/hospital/"+hospitalId;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())

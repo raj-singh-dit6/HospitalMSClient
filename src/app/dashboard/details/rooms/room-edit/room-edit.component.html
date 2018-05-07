@@ -6,17 +6,6 @@
   </div>
   <div class="modal-body">
       <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-        <div class="form-group" *ngIf="roomForm?.controls?.hospital">
-              <label for="hospital">Hospital</label>
-              <select
-                id="hospital"
-                formControlName="hospital"
-                class="form-control">
-                <option></option>
-                <option  *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
-              </select>
-              <span class="help-block" *ngIf="!roomForm.get('hospital').valid && roomForm.get('hospital').touched">Please select a hospital.</span>
-        </div>
         <div class="form-group" *ngIf="roomForm?.controls?.occupancy">
             <label for="occupancy">Occupancy</label>
             <select
@@ -46,7 +35,7 @@
             type="text"
             formControlName="perDayCharge" 
             class="form-control">
-            <span class="help-block" *ngIf="!roomForm.get('perDayCharge').valid && roomForm.get('perDayCharge').touched">Please enter a charge.</span>
+            <span class="help-block" *ngIf="!roomForm.get('perDayCharge').valid && roomForm.get('perDayCharge').touched">Please enter per day charge.</span>
         </div>  
     </div>    
          <!-- <span class="help-block" *ngIf="!roomForm.valid && roomForm.touched">Please enter valid data.</span> -->

@@ -19,7 +19,6 @@ import { DetailsComponent } from './dashboard/details/details.component';
 import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
 import { PatientsComponent } from './dashboard/details/patients/patients.component';
 import { HeadComponent } from './dashboard/head/head.component';
-import { AdminHeaderComponent } from './dashboard/details/admin-header/admin-header.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
@@ -34,7 +33,6 @@ const appRoutes: Routes = [
           ]},
       {   path: 'details', component: DetailsComponent,
           children: [
-            {path :'admin-header' ,component:AdminHeaderComponent},
             {path :'specialities' ,component:SpecialitiesComponent}
       ]},
       { path: ':id', component: RecipeDetailComponent },
