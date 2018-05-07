@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
 import { RoomService } from '../../../services/room.service';
 import { RoomEditComponent } from './room-edit/room-edit.component';
@@ -11,8 +11,8 @@ import { RoomEditComponent } from './room-edit/room-edit.component';
 })
 export class RoomsComponent implements OnInit {
 
-  hospitalId:string;
-  constructor(private roomService:RoomService,private route:ActivatedRoute,private modalService:ModalService) { 
+  @Input() hospitalId:string;
+  constructor(private roomService:RoomService,private route:ActivatedRoute,private modalService:ModalService,private router:Router) { 
     this.hospitalId = route.snapshot.paramMap.get('hospitalId');
   }
 

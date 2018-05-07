@@ -5,23 +5,16 @@ import { Doctor } from "./doctor.model";
 import { PatientStatus } from "./patientStatus.model";
 import { User } from "./user.model";
 
-export class Patient{
+export class Head{
 
     id:number;
     user:User;
-    room:Room;
     hospital:Hospital;
-    doctor:Doctor;
-    admittedDate:Date;
-    dischargedDate:Date;
-    attendedDate:Date;
-    patientStatus:PatientStatus;
 
-    constructor(id:number,user:User,hospital:Hospital,patientStatus:PatientStatus)
+    constructor(id:number,user:User,hospital:Hospital)
     {
         this.id=id;
         this.user=user;
         this.hospital=hospital;
-        this.patientStatus=patientStatus;
     } 
 }

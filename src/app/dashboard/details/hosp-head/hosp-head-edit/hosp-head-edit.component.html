@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <h4 class="modal-title">Head</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="headForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" *ngIf="headForm?.controls?.firstName">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-control">
+              <span class="help-block" *ngIf="!headForm.get('firstName').valid && headForm.get('firstName').touched">Please enter a first name.</span>
+        </div>
+        <div class="form-group" *ngIf="headForm?.controls?.lastName">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            class="form-control">
+        </div>
+        <div class="form-group" *ngIf="headForm?.controls?.email">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="form-control">
+            <span class="help-block" *ngIf="!headForm.get('email').valid && headForm.get('email').touched">Please enter a email address.</span>
+        </div>
+        <div class="form-group" *ngIf="headForm?.controls?.address">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            formControlName="address"
+            class="form-control">
+            <span class="help-block" *ngIf="!headForm.get('address').valid && headForm.get('address').touched">Please enter your address.</span>
+        </div>
+        <div class="form-group" *ngIf="headForm?.controls?.contact">
+            <label for="contact">Contact</label>
+            <input
+              type="text"
+              id="contact"
+              formControlName="contact"
+              class="form-control">
+              <span class="help-block" *ngIf="!headForm.get('contact').valid && headForm.get('contact').touched">Please enter your contact number.</span>
+        </div>
+         <!-- <span class="help-block" *ngIf="!headForm.valid && headForm.touched">Please enter valid data.</span> -->
+         <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+  

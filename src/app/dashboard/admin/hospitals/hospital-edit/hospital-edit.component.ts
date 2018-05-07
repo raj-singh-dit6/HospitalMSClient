@@ -35,7 +35,7 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
     ); 
 
     this.specialityService.getSpecialities().subscribe(result=>{
-      if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.specialities=result.data;
       }
@@ -55,14 +55,14 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
       let hospital:Hospital;
       this.hospitalService.getHospital(this.id).subscribe(result=>
       {
-        if(result.total!=0){
+        if(result && result.total!=0)
+        {
          hospital=result.data
          name=hospital.name;
          address=hospital.address;
          contact=hospital.contact;
          specialityId=hospital.speciality.id;
          active=hospital.active;
-         debugger
          this.createForm(name,specialityId,address,contact,active);
         }
       });
@@ -73,7 +73,6 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
   
   createForm(name:any='',specialityId:any='',address:any='',contact:any='',active:Boolean=false)
   {
-    debugger
     this.hospitalForm= this.formBuilder.group({
       'name':new FormControl(name,Validators.required),
       'speciality':new FormControl(specialityId,Validators.required),
@@ -89,12 +88,11 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
     const updateHospital:Hospital=this.hospitalForm.value; 
     const hospital:Hospital= new Hospital(this.id,updateHospital.name,updateHospital.address,speciality,updateHospital.contact,updateHospital.active);
     if(this.editMode){
-      debugger
       this.hospitalService.updateHospital(hospital).subscribe(result=>{
         if(result.success){
           let hospitals:Hospital[]=[];
           this.hospitalService.getHospitals().subscribe((result)=>{
-            if(result.total!=0)
+          if(result && result.total!=0)
           {
             hospitals=result.data;
             this.hospitalService.hospitalChanged.next(hospitals);
@@ -107,7 +105,7 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
         if(result.success){
           let hospitals:Hospital[]=[];
           this.hospitalService.getHospitals().subscribe((result)=>{
-            if(result.total!=0)
+          if(result && result.total!=0)
           {
             hospitals=result.data;
             this.hospitalService.hospitalChanged.next(hospitals);

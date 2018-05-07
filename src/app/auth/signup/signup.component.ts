@@ -27,11 +27,16 @@ export class SignupComponent implements OnInit {
       this.editMode=true;
     } 
       this.roleService.getRoles() .subscribe((result) => {
-        this.roles=result.data;
+       if(result && result!=0)
+       { this.roles=result.data;
+       }
       });  
 
     this.hospitalService.getHospitals().subscribe((result)=>{ 
-      this.hospitals=result.data;
+      if(result && result!=0)
+      {
+         this.hospitals=result.data;
+      }
     });
     this.initForm();
   }
@@ -47,7 +52,6 @@ export class SignupComponent implements OnInit {
 
   initForm(){
     if(this.editMode==true){
-// debugger
     }else{
       this.userForm = new FormGroup({
         'userHospital': new FormControl('', Validators.required),

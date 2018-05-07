@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { PatientService } from '../../../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,9 +12,9 @@ import { Patient } from '../../../model/patient.model';
 })
 export class PatientsComponent implements OnInit {
 
-  hospitalId:string;
+  @Input() hospitalId:string;
   constructor(private patientService:PatientService,private route:ActivatedRoute,private modalService:ModalService) { 
-    this.hospitalId = route.snapshot.paramMap.get('hospitalId');
+    // this.hospitalId = route.snapshot.paramMap.get('hospitalId');
   }
 
   ngOnInit() {

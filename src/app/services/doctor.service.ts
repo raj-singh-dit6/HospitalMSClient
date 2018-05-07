@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { API_ENDPOINTS, APP_HOME } from '../shared/constant/api-constant';
+import {APP_HOME } from '../shared/constant/api-constant';
 
 
 import { Router } from '@angular/router';
@@ -59,7 +59,7 @@ export class DoctorService {
   }
 
   deleteDoctor(id:number){
-    debugger
+    
     let url = APP_HOME+"doctor/delete/"+id;
     return this.http.delete(url,this.getRequestOptions())
       .map((res: Response) => res.json())

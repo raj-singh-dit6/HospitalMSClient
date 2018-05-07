@@ -28,13 +28,14 @@ export class PatientEditComponent implements OnInit {
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
     this.hospitalService.getHospitals().subscribe(result => {
-      if (result.total != 0) {
+      if(result && result.total!=0)
+      {
         this.hospitals = result.data;
       }
     });
 
     this.patientStatusService.getPatientStatuses().subscribe(result=>{
-      if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.patientStatuses = result.data;
       }
@@ -56,7 +57,8 @@ export class PatientEditComponent implements OnInit {
     if (this.editMode) {
       let patient: Patient;
       this.patientService.getPatient(this.id).subscribe(result => {
-        if (result.total != 0) {
+        if(result && result.total!=0)
+        {
           patient = result.data
           firstName = patient.user.firstName;
           lastName = patient.user.lastName;
@@ -74,7 +76,7 @@ export class PatientEditComponent implements OnInit {
   }
   
   createForm(firstName:any='',lastName:any='',address:any='',dob:any='',email:any='',contact:any='',hospital:any=this.id2,patientStatus:any=''){
-debugger
+
     this.patientForm = this.formBuilder.group({
       'firstName': new FormControl(firstName, Validators.required),
       'lastName': new FormControl(lastName),
@@ -88,7 +90,7 @@ debugger
   }
 
   onSubmit() {
-    debugger
+    
     const hospId=this.patientForm.get('hospital').value;
     const patientStatusId=this.patientForm.get('patientStatus').value;
     const hospital= this.hospitals.find(x=>x.id==hospId);
@@ -100,7 +102,7 @@ debugger
       this.patientService.updatePatient(patient).subscribe(result => {
         if (result.success) {
           this.patientService.getPatientsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let patients:Patient[]=result.data;
               this.patientService.patientsChanged.next(patients);
@@ -112,7 +114,7 @@ debugger
       this.patientService.addPatient(patient).subscribe(result => {
         if (result.success) {
           this.patientService.getPatientsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let patients:Patient[]=result.data;
               this.patientService.patientsChanged.next(patients);

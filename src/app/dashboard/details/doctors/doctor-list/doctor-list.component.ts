@@ -4,6 +4,8 @@ import { DoctorService } from '../../../../services/doctor.service';
 import { ModalService } from '../../../../services/modal.service';
 import { Router } from '@angular/router';
 import { DoctorEditComponent } from '../doctor-edit/doctor-edit.component';
+import { ConfirmContentComponent } from '../../../../shared/confirm-content/confirm-content.component';
+import { ConfirmService } from '../../../../shared/confirm-content/confirm.service';
 
 @Component({
   selector: 'app-doctor-list',
@@ -13,18 +15,18 @@ import { DoctorEditComponent } from '../doctor-edit/doctor-edit.component';
 export class DoctorListComponent implements OnInit {
   @Input() hospitalId;
   doctors:Doctor[];
-  constructor(private doctorService:DoctorService,private modalService:ModalService) { }
+  constructor(private doctorService:DoctorService,private modalService:ModalService,private confirmService:ConfirmService) { }
 
   ngOnInit() {
 
     this.doctorService.doctorsChanged.subscribe(
       (doctors: Doctor[]) => {
-        debugger
+        
         this.doctors = doctors;
 
     });
     this.doctorService.getDoctorsByHospital(this.hospitalId).subscribe((result)=>{
-        if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.doctors=result.data;
       }
@@ -37,18 +39,23 @@ export class DoctorListComponent implements OnInit {
 
   onDeleteDoctor(doctor:Doctor)
   {
-
-    this.doctorService.deleteDoctor(doctor.id).subscribe(result=>{
-    if(result.success)
-    {
-      this.doctorService.getDoctorsByHospital(this.hospitalId).subscribe(result=>{
-        if(result.total!=0)
+    this.confirmService.open(ConfirmContentComponent).then((result) => {
+      let action = `${result}`;
+       if(action.indexOf('yes')!=-1)
+       {
+        this.doctorService.deleteDoctor(doctor.id).subscribe(result=>{
+        if(result.success)
         {
-          let doctors:Doctor[]=result.data;
-          this.doctorService.doctorsChanged.next(doctors);
+          this.doctorService.getDoctorsByHospital(this.hospitalId).subscribe(result=>{
+            if(result && result.total!=0)
+            {
+              let doctors:Doctor[]=result.data;
+              this.doctorService.doctorsChanged.next(doctors);
+            }
+          });
         }
-      });
-    }
+        });
+      }
     });
   }
 }

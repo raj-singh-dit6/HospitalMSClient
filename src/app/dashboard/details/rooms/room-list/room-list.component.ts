@@ -3,6 +3,8 @@ import { Room } from '../../../../model/room.model';
 import { RoomService } from '../../../../services/room.service';
 import { ModalService } from '../../../../services/modal.service';
 import { RoomEditComponent } from '../room-edit/room-edit.component';
+import { ConfirmService } from '../../../../shared/confirm-content/confirm.service';
+import { ConfirmContentComponent } from '../../../../shared/confirm-content/confirm-content.component';
 
 @Component({
   selector: 'app-room-list',
@@ -12,42 +14,47 @@ import { RoomEditComponent } from '../room-edit/room-edit.component';
 export class RoomListComponent implements OnInit {
   @Input() hospitalId;
   rooms:Room[];
-  constructor(private roomService:RoomService,private modalService:ModalService) { }
+  constructor(private roomService:RoomService,private modalService:ModalService,private confirmService:ConfirmService) { }
 
   ngOnInit() {
 
     this.roomService.roomsChanged.subscribe(
       (rooms: Room[]) => {
-        debugger
+        
         this.rooms = rooms;
 
     });
     this.roomService.getRoomsByHospital(this.hospitalId).subscribe((result)=>{
-        if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.rooms=result.data;
       }
     });
   }
-  onEditPatient(room:Room)
+  onEditRoom(room:Room)
   {
     this.modalService.open(RoomEditComponent,room.id,this.hospitalId);
   }
 
-  onDeletePatient(room:Room)
+  onDeleteRoom(room:Room)
   {
-
-    this.roomService.deleteRoom(room.id).subscribe(result=>{
-    if(result.success)
-    {
-      this.roomService.getRoomsByHospital(this.hospitalId).subscribe(result=>{
-        if(result.total!=0)
+    this.confirmService.open(ConfirmContentComponent).then((result) => {
+      let action = `${result}`;
+      if(action.indexOf('yes')!=-1)
+      {
+        this.roomService.deleteRoom(room.id).subscribe(result=>{
+        if(result.success)
         {
-          let rooms:Room[]=result.data;
-          this.roomService.roomsChanged.next(rooms);
+          this.roomService.getRoomsByHospital(this.hospitalId).subscribe(result=>{
+            if(result && result.total!=0)
+            {
+              let rooms:Room[]=result.data;
+              this.roomService.roomsChanged.next(rooms);
+            }
+          });
         }
-      });
-    }
+        });
+      }
     });
   } 
 }

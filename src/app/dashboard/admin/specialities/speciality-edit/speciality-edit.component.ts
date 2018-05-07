@@ -32,9 +32,9 @@ export class SpecialityEditComponent implements OnInit {
       let speciality:any;
 
       this.specialityService.getSpeciality(this.id).subscribe(result=>{
-      if(result.total!=0){
+        if(result && result.total!=0)
+        {
           speciality=result.data;
-          debugger
           this.createForm(speciality.type);
         }
       }); 
@@ -53,30 +53,32 @@ export class SpecialityEditComponent implements OnInit {
 
   onSubmit(){
 
+    const updateSpeciality=this.specialityForm.value;
+    const speciality:Speciality=new Speciality(this.id,updateSpeciality.type);
     if(this.editMode){
-      this.specialityService.addSpeciality(this.specialityForm.value).subscribe(result=>{
+      this.specialityService.updateSpeciality(speciality).subscribe(result=>{
         if(result.success)
         {
           this.specialityService.getSpecialities().subscribe((result)=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let specialities:Speciality[]=result.data;
               this.specialityService.specialitiesChanged.next(specialities);
-              debugger;
+              ;
             }
           });
         }
       });
     }else{
-      this.specialityService.updateSpeciality(this.specialityForm.value).subscribe(result=>{
+      this.specialityService.addSpeciality(speciality).subscribe(result=>{
         if(result.success)
         {
           this.specialityService.getSpecialities().subscribe((result)=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let specialities:Speciality[]=result.data;
               this.specialityService.specialitiesChanged.next(specialities);
-              debugger;
+              ;
             }
           });
         }

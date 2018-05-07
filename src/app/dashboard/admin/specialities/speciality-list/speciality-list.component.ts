@@ -4,6 +4,8 @@ import { SpecialityService } from '../../../../services/speciality.service';
 import { ModalService } from '../../../../services/modal.service';
 import { SpecialityEditComponent } from '../speciality-edit/speciality-edit.component';
 import { Subscription } from 'rxjs/Subscription';
+import { ConfirmService } from '../../../../shared/confirm-content/confirm.service';
+import { ConfirmContentComponent } from '../../../../shared/confirm-content/confirm-content.component';
 
 @Component({
   selector: 'app-speciality-list',
@@ -14,18 +16,18 @@ export class SpecialityListComponent implements OnInit, OnDestroy {
   specialities:Speciality[];
   subscription:Subscription;
 
-  constructor(private specialityService:SpecialityService,private modalService:ModalService) {  }
+  constructor(private specialityService:SpecialityService,private modalService:ModalService,private confirmService:ConfirmService) {  }
 
   ngOnInit() { 
     this.subscription = this.specialityService.specialitiesChanged
       .subscribe(
         (specialities: Speciality[]) => {
-          debugger
+          
           this.specialities = specialities;
         }
       ); 
     this.specialityService.getSpecialities().subscribe((result)=>{
-      if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.specialities=result.data;
       }
@@ -41,15 +43,21 @@ export class SpecialityListComponent implements OnInit, OnDestroy {
 
   onDeleteSpeciality(speciality:Speciality)
   {
-    this.specialityService.deleteSpeciality(speciality.id).subscribe(result=>{
-      if(result.success)
+    this.confirmService.open(ConfirmContentComponent).then((result) => {
+      let action = `${result}`;
+      if(action.indexOf('yes')!=-1)
       {
-        this.specialityService.getSpecialities().subscribe(result=>{
-          if(result.total!=0)
+        this.specialityService.deleteSpeciality(speciality.id).subscribe(result=>{
+          if(result.success)
           {
-            let specialities:Speciality[]=result.data;
-            this.specialityService.specialitiesChanged.next(specialities);
-            debugger;
+            this.specialityService.getSpecialities().subscribe(result=>{
+              if(result && result.total!=0)
+              {
+                let specialities:Speciality[]=result.data;
+                this.specialityService.specialitiesChanged.next(specialities);
+                ;
+              }
+            });
           }
         });
       }

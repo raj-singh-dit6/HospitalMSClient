@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { UserInfo } from '../../model/UserInfo.model';
+import { Role } from '../../model/role.model';
 
 
 @Component({
@@ -25,7 +27,18 @@ export class SigninComponent implements OnInit {
     this.authService.signinUser(username, password)
     .subscribe((result) => {
       if (result) {
-        this.router.navigateByUrl('/dashboard');
+        let currentUser:UserInfo= result;
+        console.log(currentUser);
+        let roles:Role[]=currentUser.roles;
+        if(roles.find(role=>role.type==="ADMIN")!=null){
+          this.router.navigateByUrl('/dashboard');
+        }else if(roles.find(role=>role.type==="HEAD")!=null){
+          this.router.navigate(['/head',currentUser.hospital.id]);
+        }else if(roles.find(role=>role.type==="DOCTOR")!=null){
+          this.router.navigate(['/doctor',currentUser.hospital.id]);
+        }else if(roles.find(role=>role.type==="PATIENT")!=null){
+          this.router.navigate(['/patient',currentUser.hospital.id]);
+        }
       } else {
           alert("login failed")
       }

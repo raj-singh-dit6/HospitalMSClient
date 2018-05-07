@@ -4,13 +4,27 @@
       <hr class="d-sm-none">
     </div>
     <div class="col-sm-6">
-      <app-simple-chart></app-simple-chart>
+      <app-simple-chart [chartFor]="chartFor"></app-simple-chart>
     </div>
-  </div>
+</div>
+<hr>
 <div class="row">
-    <div class="col-sm-12">
-      <app-hospitals></app-hospitals>
-    </div>
+  <ngb-tabset style="width:100%;">
+    <ngb-tab>
+      <ng-template ngbTabTitle>Hospitals</ng-template>
+      <ng-template ngbTabContent>
+        <hr>
+        <app-hospitals></app-hospitals>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle>Specialities</ng-template>
+      <ng-template ngbTabContent>
+        <hr>
+        <app-specialities></app-specialities>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
 </div>
 
       

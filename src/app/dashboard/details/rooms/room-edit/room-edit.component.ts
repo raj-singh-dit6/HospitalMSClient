@@ -27,13 +27,14 @@ export class RoomEditComponent implements OnInit {
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
     this.hospitalService.getHospitals().subscribe(result => {
-      if (result.total != 0) {
+      if(result && result.total!=0)
+      {
         this.hospitals = result.data;
       }
     });
 
     this.occupancyService.getOccupancies().subscribe(result=>{
-      if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.occupancies = result.data;
       }
@@ -65,29 +66,29 @@ export class RoomEditComponent implements OnInit {
     }
   }
   
-createForm(roomInfo:any='',hospital:any='',occupancy:any='',perDayCharge:any=''){
-debugger
+createForm(roomInfo:any='',hospital:any=this.id2,occupancy:any='',perDayCharge:any=0){
+
     this.roomForm = this.formBuilder.group({
-      'hospital': new FormControl(hospital),
+      'hospital': new FormControl(hospital, Validators.required),
       'occupancy': new FormControl(occupancy, Validators.required),
       'roomInfo': new FormControl(roomInfo, Validators.required),
-      'perDayCharge': new FormControl(perDayCharge, Validators.required),
+      'perDayCharge': new FormControl(perDayCharge, 
+        [Validators.required,Validators.pattern(/^[1-9]+[0-9]*$/)]),
     });
   }
 
   onSubmit() {
-    debugger
     const hospId=this.roomForm.get('hospital').value;
     const occupancyId=this.roomForm.get('occupancy').value;
     const hospital= this.hospitals.find(x=>x.id==hospId);
     const updateRoom:any=this.roomForm.value;
     const occupancy=this.occupancies.find(x=>x.id==occupancyId);
-    const room:Room=new Room(this.id,occupancy,hospital,updateRoom.roomInfo);
+    const room:Room=new Room(this.id,occupancy,hospital,updateRoom.roomInfo,updateRoom.perDayCharge);
     if (this.editMode) {
       this.roomService.updateRoom(room).subscribe(result => {
         if (result.success) {
           this.roomService.getRoomsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let rooms:Room[]=result.data;
               this.roomService.roomsChanged.next(rooms);
@@ -99,7 +100,7 @@ debugger
       this.roomService.addRoom(room).subscribe(result => {
         if (result.success) {
           this.roomService.getRoomsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let rooms:Room[]=result.data;
               this.roomService.roomsChanged.next(rooms);

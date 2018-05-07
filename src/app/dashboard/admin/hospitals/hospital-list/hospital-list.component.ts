@@ -5,6 +5,8 @@ import { ModalService } from '../../../../services/modal.service';
 import { HospitalEditComponent } from '../hospital-edit/hospital-edit.component';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { ConfirmContentComponent } from '../../../../shared/confirm-content/confirm-content.component';
+import { ConfirmService } from '../../../../shared/confirm-content/confirm.service';
 
 @Component({
   selector: 'app-hospital-list',
@@ -15,20 +17,19 @@ export class HospitalListComponent implements OnInit,OnDestroy {
   hospitals:Hospital[];
   hospitalSubs:Subscription;
   
-  constructor(private hospitalService:HospitalService,private modalService:ModalService,private router:Router) { }
+  constructor(private hospitalService:HospitalService,private modalService:ModalService,private router:Router,private confirmService:ConfirmService) { }
 
   ngOnInit() {
 
     this.hospitalSubs= this.hospitalService.hospitalChanged
     .subscribe(
       (hospitals: Hospital[]) => {
-        debugger
         this.hospitals = hospitals;
       }
     );
 
     this.hospitalService.getHospitals().subscribe((result)=>{
-        if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.hospitals=result.data;
       }
@@ -41,20 +42,25 @@ export class HospitalListComponent implements OnInit,OnDestroy {
 
   onDeleteHospital(hospital:Hospital)
   {
-
-    this.hospitalService.deleteHospital(hospital.id).subscribe(result=>{
-    if(result.success)
-    {
-      this.hospitalService.getHospitals().subscribe(result=>{
-        if(result.total!=0)
+    this.confirmService.open(ConfirmContentComponent).then((result) => {
+      let action = `${result}`;
+      if(action.indexOf('yes')!=-1)
+      {
+        this.hospitalService.deleteHospital(hospital.id).subscribe(result=>{
+        if(result.success)
         {
-          let hospitals:Hospital[]=result.data;
-          this.hospitalService.hospitalChanged.next(hospitals);
+          this.hospitalService.getHospitals().subscribe(result=>{
+            if(result && result.total!=0)
+            {
+              let hospitals:Hospital[]=result.data;
+              this.hospitalService.hospitalChanged.next(hospitals);
+            }
+          });
         }
-      });
-    }
+        });
+      }
     });
-  }
+  } 
   
   ngOnDestroy()
   {

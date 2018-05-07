@@ -1,6 +1,39 @@
-<div class="row">
+<!-- <div class="row">
   <app-admin-header [hospitalId]="hospitalId" (featureSelected)="onNavigate($event)"></app-admin-header>
 </div>
 <div class="row">
   <router-outlet></router-outlet>
-</div>
+</div> -->
+<a type="button" style="cursor: pointer;" class="btn btn-primary" routerLink="/dashboard">Go back</a>
+<ngb-tabset style="width:100%;">
+  <ngb-tab>
+    <ng-template ngbTabTitle>Head</ng-template>
+    <ng-template ngbTabContent>
+      <app-hosp-head [hospitalId]="hospitalId"></app-hosp-head>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Doctors</ng-template>
+    <ng-template ngbTabContent>
+     <app-doctors [hospitalId]="hospitalId"></app-doctors>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Patients</ng-template>
+    <ng-template ngbTabContent>
+     <app-patients [hospitalId]="hospitalId"></app-patients>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Rooms</ng-template>
+    <ng-template ngbTabContent>
+      <app-rooms [hospitalId]="hospitalId"></app-rooms>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Room Occupancy</ng-template>
+    <ng-template ngbTabContent>
+      <app-occupancies ></app-occupancies>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

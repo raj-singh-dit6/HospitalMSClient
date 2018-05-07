@@ -27,13 +27,14 @@ export class DoctorEditComponent implements OnInit {
   ngOnInit() {
     this.editMode=this.id!=null && this.id!='';
     this.hospitalService.getHospitals().subscribe(result => {
-      if (result.total != 0) {
+      if(result && result.total!=0)
+      {
         this.hospitals = result.data;
       }
     });
 
     this.departmentService.getDepartments().subscribe(result=>{
-      if(result.total!=0)
+      if(result && result.total!=0)
       {
         this.departments = result.data;
       }
@@ -57,7 +58,8 @@ export class DoctorEditComponent implements OnInit {
     if (this.editMode) {
       let doctor: Doctor;
       this.doctorService.getDoctor(this.id).subscribe(result => {
-        if (result.total != 0) {
+        if(result && result.total!=0)
+        {
           doctor = result.data
           firstName = doctor.user.firstName;
           lastName = doctor.user.lastName;
@@ -68,7 +70,7 @@ export class DoctorEditComponent implements OnInit {
           department = doctor.department.id;
           description = doctor.description;
           active = doctor.active;
-          debugger  
+            
           this.createForm(firstName,lastName,description,address,dob,email,contact,hospital,department,active);
         }
       });
@@ -105,7 +107,7 @@ export class DoctorEditComponent implements OnInit {
       this.doctorService.updateDoctor(doctor).subscribe(result => {
         if (result.success) {
           this.doctorService.getDoctorsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let doctors:Doctor[]=result.data;
               this.doctorService.doctorsChanged.next(doctors);
@@ -117,7 +119,7 @@ export class DoctorEditComponent implements OnInit {
       this.doctorService.addDoctor(doctor).subscribe(result => {
         if (result.success) {
           this.doctorService.getDoctorsByHospital(this.id2).subscribe(result=>{
-            if(result.total!=0)
+            if(result && result.total!=0)
             {
               let doctors:Doctor[]=result.data;
               this.doctorService.doctorsChanged.next(doctors);

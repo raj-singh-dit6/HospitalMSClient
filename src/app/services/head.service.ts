@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { API_ENDPOINTS, APP_HOME } from '../shared/constant/api-constant';
+import { APP_HOME } from '../shared/constant/api-constant';
 
 
 import { Router } from '@angular/router';
@@ -12,49 +12,55 @@ import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
 import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
-import { Hospital } from '../model/hospital.model';
 import { Subject } from 'rxjs/Subject';
+import { Head } from '../model/head.model';
 
 @Injectable()
-export class HospitalService {
+export class HeadService {
 
-  hospitalChanged= new Subject<Hospital[]>();
+  headChanged= new Subject<Head>();
   constructor(private http: Http) {}
   
-  getHospitalsSlice()
-  {
-  }
-  getHospitals(){
-    let url = APP_HOME+"hospital/all";
+  getHeadByHospital(hospitalId:string){
+    let url = APP_HOME+"head/hospital/"+hospitalId;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  getHospital(id:number){
-    let url = APP_HOME+"hospital/"+id;
+  getHeads(){
+    let url = APP_HOME+"head/all";
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  addHospital(hospital:Hospital){
-    let url = APP_HOME+"hospital/add";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+  getHead(id:number){
+    let url = APP_HOME+"head/"+id;
+    return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  updateHospital(hospital:Hospital){
-    let url = APP_HOME+"hospital/update";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+  addHead(head:Head){
+    alert(JSON.stringify(head));
+    let url = APP_HOME+"head/add";
+    return this.http.post(url,JSON.stringify(head),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
-  deleteHospital(id:number){
+
+  updateHead(head:Head){
+    let url = APP_HOME+"head/update";
+    return this.http.post(url,JSON.stringify(head),this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  deleteHead(id:number){
     
-    let url = APP_HOME+"hospital/delete/"+id;
+    let url = APP_HOME+"head/delete/"+id;
     return this.http.delete(url,this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));

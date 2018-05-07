@@ -14,11 +14,12 @@ export class Room{
 	perDayCharge:number ;
     patients:Patient;
 
-    constructor(id:number,occupancy:Occupancy,hospital:Hospital,roomInfo:string)
+    constructor(id:number,occupancy:Occupancy,hospital:Hospital,roomInfo:string,perDayCharge:number)
     {
         this.id=id;
         this.hospital=hospital;
         this.occupancy=occupancy;
         this.roomInfo=roomInfo;
+        this.perDayCharge=perDayCharge;
     } 
 }

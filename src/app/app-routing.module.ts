@@ -19,19 +19,10 @@ import { DetailsComponent } from './dashboard/details/details.component';
 import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
 import { PatientsComponent } from './dashboard/details/patients/patients.component';
 import { HeadComponent } from './dashboard/head/head.component';
+import { AdminHeaderComponent } from './dashboard/details/admin-header/admin-header.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
-  {
-    path: 'recipe', 
-    component: RecipesComponent, 
-    children: [
-      { path: '', component: RecipeStartComponent },
-      { path: 'new', component: RecipeEditComponent },
-      { path: ':id', component: RecipeDetailComponent },
-      { path: ':id/edit', component: RecipeEditComponent },
-    ]
-  },
   {
     path: 'dashboard', 
     component: DashboardComponent, 
@@ -41,19 +32,22 @@ const appRoutes: Routes = [
             {path :'hospitals' ,component:HospitalsComponent},
             {path :'specialities' ,component:SpecialitiesComponent}
           ]},
-      { path: 'details', component: RecipeEditComponent },
+      {   path: 'details', component: DetailsComponent,
+          children: [
+            {path :'admin-header' ,component:AdminHeaderComponent},
+            {path :'specialities' ,component:SpecialitiesComponent}
+      ]},
       { path: ':id', component: RecipeDetailComponent },
       { path: ':id/edit', component: RecipeEditComponent },
     ]
   },
   { path: 'hospitals', component: HospitalsComponent },
   { path: 'dashboard/details/:hospitalId', component: DetailsComponent },
-  { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'signin', component: SigninComponent },
   { path :'specialities' ,component:SpecialitiesComponent},
   { path :'doctors/:hospitalId' ,component:DoctorsComponent},
   { path :'patients/:hospitalId' ,component:PatientsComponent},
-  { path: 'occupancies', component: OccupanciesComponent },
+  { path: 'occupancies/:hospitalId', component: OccupanciesComponent },
   { path: 'rooms/:hospitalId', component: RoomsComponent },
   { path: 'users/:hospitalId', component: UsersComponent },
   { path: 'head/:hospitalId', component: HeadComponent },

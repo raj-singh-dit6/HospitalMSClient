@@ -34,13 +34,13 @@ export class AuthService {
         if (res && res.data) {
           let userJson: any = res.data;
           let userInfo = new UserInfo(userJson.id, userJson.userName, userJson.email, userJson.firstName,
-                          userJson.lastName,userJson.roles);
+                          userJson.lastName,userJson.roles,userJson.hospital);
           localStorage.setItem('user', JSON.stringify(userInfo));
           localStorage.setItem('sessionKey', userJson['sessionKey']);
           this.currentUser = userInfo;
           this.loggedIn = true;
         }
-        return this.loggedIn;
+        return this.currentUser;
       })
       .catch((err: Response) => this.handleError(err));
     }

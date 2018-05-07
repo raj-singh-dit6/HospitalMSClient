@@ -1,0 +1,29 @@
+<hr>
+<button class="btn btn-success" (click)="onAddHead()">Add Head</button>
+<hr>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <th scope="col">Head Name</th>
+        <th scope="col">Contact No.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Hospital Name</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr scope="row" *ngIf="head!=null">
+            <td scope="col">{{head.user.firstName}} {{head.user.lastName}}</td>
+            <td scope="col">{{head.user.contact}}</td>
+            <td scope="col">{{head.user.email}}</td>
+            <td scope="col">{{head.hospital.name}}</td>
+            <td scope="col">
+                <button class="btn btn-primary" (click)="onEditHead(head)">Edit</button>
+            <td scope="col">
+                <button class="btn btn-secondary" (click)="onDeleteHead(head)">Delete</button>
+            </td>
+        </tr>
+        
+    </tbody>
+  </table>
+  
+  

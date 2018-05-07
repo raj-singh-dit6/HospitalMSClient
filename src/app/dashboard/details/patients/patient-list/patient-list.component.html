@@ -10,7 +10,7 @@
   </thead>
   <tbody>
       <tr *ngFor="let patient of patients" scope="row">
-          <td scope="col">{{patient.user.firstNames}} {{patient.user.lastName}}</td>
+          <td scope="col">{{patient.user.firstName}} {{patient.user.lastName}}</td>
           <td scope="col">{{patient.user.contact}}</td>
           <td scope="col">{{patient.user.email}}</td>
           <td scope="col">{{patient.hospital.name}}</td>

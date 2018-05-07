@@ -44,7 +44,7 @@ export class SpecialityService {
 
   updateSpeciality(speciality:Speciality){
     let url = APP_HOME+"speciality/update";
-    return this.http.post(url,speciality,this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(speciality),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }

@@ -22,9 +22,4 @@ export class HospitalsComponent implements OnInit {
 
   }
 
-  onManageSpecialities()
-  {
-     this.router.navigateByUrl('specialities')  ;
-  }
-
 }

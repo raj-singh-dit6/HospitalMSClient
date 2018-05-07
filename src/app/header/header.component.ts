@@ -42,7 +42,7 @@ export class HeaderComponent {
         localStorage.removeItem('sessionKey');
         localStorage.removeItem('user');
         this.router.navigateByUrl("/signin");
-        debugger
+        
       }
     });
   }
