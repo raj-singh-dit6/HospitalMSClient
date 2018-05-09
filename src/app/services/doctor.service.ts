@@ -35,7 +35,7 @@ export class DoctorService {
       .catch((err: Response) => this.handleError(err));
   }
 
-  getDoctor(id:number){
+  getDoctor(id:any){
     let url = APP_HOME+"doctor/"+id;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())

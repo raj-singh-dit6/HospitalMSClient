@@ -10,11 +10,11 @@
   </thead>
   <tbody>
       <tr *ngFor="let patient of patients" scope="row">
-          <td scope="col">{{patient.user.firstName}} {{patient.user.lastName}}</td>
+          <td scope="col">{{patient.user.firstName}} {{patient.user.lastName}}<i class="fas fa-user-md" (click)="onAssignDoctor(patient)"></i><i class="far fa-hospital" (click)="onAssignRoom(patient)"></i></td>
           <td scope="col">{{patient.user.contact}}</td>
           <td scope="col">{{patient.user.email}}</td>
           <td scope="col">{{patient.hospital.name}}</td>
-          <td scope="col">{{patient.patientStatus.name}}</td>
+          <td scope="col">{{patient.patientStatus.name==null?Attended:patient.patientStatus.name}}</td>
           <td scope="col">
               <button class="btn btn-primary" (click)="onEditPatient(patient)">Edit</button>
           <td scope="col">

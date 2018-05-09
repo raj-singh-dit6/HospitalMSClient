@@ -4,6 +4,7 @@ import { PatientService } from '../../../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
 import { Patient } from '../../../model/patient.model';
+import { AssignDoctorComponent } from '../assign-doctor/assign-doctor.component';
 
 @Component({
   selector: 'app-patients',

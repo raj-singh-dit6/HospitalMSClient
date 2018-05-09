@@ -14,14 +14,13 @@ export class Patient{
     doctor:Doctor;
     admittedDate:Date;
     dischargedDate:Date;
-    attendedDate:Date;
+    reservationDate:Date;
     patientStatus:PatientStatus;
 
-    constructor(id:number,user:User,hospital:Hospital,patientStatus:PatientStatus)
+    constructor(id:number,user:User,hospital:Hospital)
     {
         this.id=id;
         this.user=user;
         this.hospital=hospital;
-        this.patientStatus=patientStatus;
     } 
 }

@@ -33,8 +33,8 @@ export class AuthService {
       .map((res) => {
         if (res && res.data) {
           let userJson: any = res.data;
-          let userInfo = new UserInfo(userJson.id, userJson.userName, userJson.email, userJson.firstName,
-                          userJson.lastName,userJson.roles,userJson.hospital);
+          let userInfo = new UserInfo(userJson.id, userJson.userName, userJson.firstName, userJson.lastName,
+                          userJson.email,userJson.roles,userJson.hospital);
           localStorage.setItem('user', JSON.stringify(userInfo));
           localStorage.setItem('sessionKey', userJson['sessionKey']);
           this.currentUser = userInfo;

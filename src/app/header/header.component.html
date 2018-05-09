@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
-      <a class="navbar-brand"><span style="color:aquamarine">{{userInfo.userName}} <img src="../../assets/img/hospitalMSLogo.jpg" style="width: 40px;height: 40px ;"></span></a>
+      <a class="navbar-brand"><span style="color:aquamarine" *ngIf="authService.isAuthenticated()" >{{userInfo.firstName}}<img src="../../assets/img/hospitalMSLogo.jpg" style="width: 40px;height: 40px ;"></span></a>
       <select *ngFor="let role of userRoles">
         <option>{{role.type}}</option>
       </select>

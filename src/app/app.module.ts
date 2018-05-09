@@ -82,10 +82,12 @@ import { HospHeadComponent } from './dashboard/details/hosp-head/hosp-head.compo
 import { HospHeadEditComponent } from './dashboard/details/hosp-head/hosp-head-edit/hosp-head-edit.component';
 import { ConfirmContentComponent } from './shared/confirm-content/confirm-content.component';
 import { ConfirmService } from './shared/confirm-content/confirm.service';
-import { HeadPatientsComponent } from './dashboard/head/head-patients/head-patients.component';
-import { HeadRoomsComponent } from './dashboard/head/head-rooms/head-rooms.component';
-import { HeadDetailsComponent } from './dashboard/head-details/head-details.component';
-import { HeadDoctorsComponent } from './dashboard/head/head-doctors/head-doctors.component';
+import { AssignDoctorComponent } from './dashboard/details/assign-doctor/assign-doctor.component';
+import { RoomDetailComponent } from './dashboard/head/room-detail/room-detail.component';
+import { DoctorDetailComponent } from './dashboard/head/doctor-detail/doctor-detail.component';
+import { PatientDoctorService } from './services/patientDoctor.service';
+import { AssignRoomComponent } from './dashboard/details/assign-room/assign-room.component';
+import { LineChartComponent } from './dashboard/line-chart/line-chart.component';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 @NgModule({
@@ -138,10 +140,11 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     HospHeadComponent,
     HospHeadEditComponent,
     ConfirmContentComponent,
-    HeadPatientsComponent,
-    HeadRoomsComponent,
-    HeadDetailsComponent,
-    HeadDoctorsComponent
+    AssignDoctorComponent,
+    RoomDetailComponent,
+    DoctorDetailComponent,
+    AssignRoomComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -154,8 +157,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     NgbModule.forRoot()
     
   ],
-  providers: [ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService],
-  entryComponents: [ConfirmContentComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent,HospHeadEditComponent],
+  providers: [ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService,PatientDoctorService],
+  
+  entryComponents: [AssignRoomComponent,AssignDoctorComponent,ConfirmContentComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent,HospHeadEditComponent],
   bootstrap: [AppComponent]
   
 })

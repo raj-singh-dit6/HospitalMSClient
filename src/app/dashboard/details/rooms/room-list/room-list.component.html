@@ -12,10 +12,10 @@
   </thead>
   <tbody>
         <tr *ngFor="let room of rooms" scope="row">
-                <td scope="col">{{room.roomInfo}}</td>
+                <td scope="col"><a style="cursor: pointer;"  [routerLink]="['room-detail',room.id]">{{room.roomInfo}}</a></td>
                 <td scope="col">{{room.hospital.name}}</td>
                 <td scope="col">{{room.occupancy.type}}</td>
-                <td scope="col">{{room.vacantStatus}}</td>
+                <td scope="col">{{room.vacant}}</td>
                 <td scope="col">{{room.totalBeds}}</td>
                 <td scope="col">{{room.remainingBeds}}</td>
                 <td scope="col">{{room.perDayCharge}}</td>

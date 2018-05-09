@@ -62,18 +62,7 @@
             formControlName="contact"
             class="form-control">
             <span class="help-block" *ngIf="!patientForm.get('contact').valid && patientForm.get('contact').touched">Please enter your contact number.</span>
-      </div>
-      <div class="form-group" *ngIf="patientForm?.controls?.patientStatus">
-        <label for="patientStatus">Patient Status</label>
-        <select
-          id="patientStatus"
-          formControlName="patientStatus"
-          class="form-control">
-          <option></option>
-          <option  *ngFor="let patientStatus of patientStatuses" [value]="patientStatus.id">{{patientStatus.name}}</option>
-        </select>
-        <span class="help-block" *ngIf="!patientForm.get('patientStatus').valid && patientForm.get('patientStatus').touched">Please select a Patient Status.</span>
-      </div>    
+      </div>  
        <!-- <span class="help-block" *ngIf="!patientForm.valid && patientForm.touched">Please enter valid data.</span> -->
        <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
       </form>

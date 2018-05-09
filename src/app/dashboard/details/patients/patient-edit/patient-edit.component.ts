@@ -64,8 +64,7 @@ export class PatientEditComponent implements OnInit {
           address = patient.user.address;
           email = patient.user.email;
           contact = patient.user.contact;
-          patientStatus = patient.patientStatus.id;
-          this.createForm(firstName,lastName,address,dob,email,contact,patientStatus);
+          this.createForm(firstName,lastName,address,dob,email,contact);
         }
       });
     }else{
@@ -73,7 +72,7 @@ export class PatientEditComponent implements OnInit {
     }
   }
   
-  createForm(firstName:any='',lastName:any='',address:any='',dob:any='',email:any='',contact:any='',patientStatus:any=''){
+  createForm(firstName:any='',lastName:any='',address:any='',dob:any='',email:any='',contact:any=''){
 
     this.patientForm = this.formBuilder.group({
       'firstName': new FormControl(firstName, Validators.required),
@@ -82,17 +81,14 @@ export class PatientEditComponent implements OnInit {
       'email': new FormControl(email, Validators.required),
       'contact': new FormControl(contact, [Validators.required,
                          Validators.pattern(/^[1-9]+[0-9]*$/)]),
-      'patientStatus': new FormControl(patientStatus, Validators.required),
     });
   }
 
   onSubmit() {
     
-    const patientStatusId=this.patientForm.get('patientStatus').value;
     const updatePatient:any=this.patientForm.value;
     const user:User= new User(null,null,updatePatient.firstName,updatePatient.lastName,updatePatient.email,null,this.hospital,updatePatient.address,updatePatient.contact);
-    const patientStatus=this.patientStatuses.find(x=>x.id==patientStatusId);
-    const patient:Patient=new Patient(this.id,user,this.hospital,patientStatus);
+    const patient:Patient=new Patient(this.id,user,this.hospital);
     if (this.editMode) {
       this.patientService.updatePatient(patient).subscribe(result => {
         if (result.success) {

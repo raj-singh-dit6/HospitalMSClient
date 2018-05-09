@@ -35,7 +35,7 @@ export class RoomService {
       .catch((err: Response) => this.handleError(err));
   }
 
-  getRoom(id:number){
+  getRoom(id:any){
     let url = APP_HOME+"room/"+id;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())

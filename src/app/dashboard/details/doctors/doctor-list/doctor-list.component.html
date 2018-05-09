@@ -11,7 +11,7 @@
   </thead>
   <tbody>
       <tr *ngFor="let doctor of doctors" scope="row">
-          <td scope="col">{{doctor.user.firstName}} {{doctor.user.lastName}}</td>
+          <td scope="col"><a style="cursor: pointer;"  [routerLink]="['doctor-detail',doctor.id]">{{doctor.user.firstName}} {{doctor.user.lastName}}</a></td>
           <td scope="col">{{doctor.description}}</td>
           <td scope="col">{{doctor.user.contact}}</td>
           <td scope="col">{{doctor.user.email}}</td>

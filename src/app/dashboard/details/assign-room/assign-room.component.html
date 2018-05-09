@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">Patient</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="assignDoctorForm" (ngSubmit)="onSubmit()">
+     <div class="form-group" *ngIf="assignDoctorForm?.controls?.room">
+        <label for="address">Room</label>
+        <select
+          id="room"
+          formControlName="room"
+          class="form-control">
+          <option></option>
+          <option  *ngFor="let room of rooms" [value]="room.id">{{room.roomInfo}}</option>
+        </select>
+        <span class="help-block" *ngIf="!assignDoctorForm.get('room').valid && assignDoctorForm.get('room').touched">Please select a room.</span>
+      </div>
+      <div class="form-group" *ngIf="assignDoctorForm?.controls?.patientStatus">
+        <label for="address">Patient Status</label>
+        <select
+          id="patientStatus"
+          formControlName="patientStatus"
+          class="form-control">
+          <option></option>
+          <option  *ngFor="let patientStatus of patientStatuses" [value]="patientStatus.id">{{patientStatus.name}}</option>
+        </select>
+        <span class="help-block" *ngIf="!assignDoctorForm.get('patientStatus').valid && assignDoctorForm.get('patientStatus').touched">Please select a patient status.</span>
+      </div>    
+      
+       <!-- <span class="help-block" *ngIf="!patientForm.valid && patientForm.touched">Please enter valid data.</span> -->
+       <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+      </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title">Patient</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="assignDoctorForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" *ngIf="assignDoctorForm?.controls?.doctor">
+        <label for="address">Doctor</label>
+        <select
+          id="doctor"
+          formControlName="doctor"
+          class="form-control">
+          <option *ngIf="doctors==null;else elseBlock">No doctors availiable</option>
+          <ng-template #elseBlock><option></option></ng-template> 
+          <option  *ngFor="let doctor of doctors" [value]="doctor.id">{{doctor.user.firstName}} {{doctor.user.lastName}}</option>
+        </select>
+        <span class="help-block" *ngIf="!assignDoctorForm.get('doctor').valid && assignDoctorForm.get('doctor').touched">Please select a doctor.</span>
+      </div>
+       <!-- <span class="help-block" *ngIf="!patientForm.valid && patientForm.touched">Please enter valid data.</span> -->
+       <button class="btn btn-primary" type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+      </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

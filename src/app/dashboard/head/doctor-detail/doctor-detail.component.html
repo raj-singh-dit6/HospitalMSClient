@@ -1,0 +1,25 @@
+<a type="button" style="cursor: pointer;" class="btn btn-primary" routerLink="/dashboard">Go back</a>
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+      <th scope="col">Patient Name</th>
+      <th scope="col">Adrress</th>
+      <th scope="col">Contact No.</th>
+      <th scope="col">Patient Status</th>
+      <th scope="col">Hospital Room Info</th>
+      <th scope="col">Reservation Date</th>
+      <th scope="col">Admitted Date</th>
+      <th scope="col">Discharged Date</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let patient of patients" scope="row">
+          <td scope="col">{{patient.user.firstName}} {{patient.user.lastName}} <i class="fas fa-file-medical" (click)="onTestReports(patient)"></i></td>
+          <td scope="col">{{patient.user.address}}</td>
+          <td scope="col">{{patient.user.contact}}</td>
+          <td scope="col">{{patient.patientStatus.name}}</td>
+          <td scope="col">{{patient.room.roomInfo}}</td>
+          <td scope="col"><p *ngIf="patient.patientStatus.name=='Reservation'">{{patient.reservationDate | date:'dd/MM/yyyy'}}</p></td>
+          <td scope="col"><p *ngIf="patient.patientStatus.name=='Admitted'">{{patient.admittedDate | date:'dd/MM/yyyy'}}</p></td>
+          <td scope="col"><p *ngIf="patient.patientStatus.name=='Discharged'">{{patient.dischargedDate | date:'dd/MM/yyyy'}}</p></td>
+      </tr>
+  </tbody>
+</table>

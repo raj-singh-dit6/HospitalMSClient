@@ -19,6 +19,9 @@ import { DetailsComponent } from './dashboard/details/details.component';
 import { DoctorsComponent } from './dashboard/details/doctors/doctors.component';
 import { PatientsComponent } from './dashboard/details/patients/patients.component';
 import { HeadComponent } from './dashboard/head/head.component';
+import { RoomDetailComponent } from './dashboard/head/room-detail/room-detail.component';
+import { DoctorDetailComponent } from './dashboard/head/doctor-detail/doctor-detail.component';
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
@@ -41,6 +44,8 @@ const appRoutes: Routes = [
   },
   { path: 'hospitals', component: HospitalsComponent },
   { path: 'dashboard/details/:hospitalId', component: DetailsComponent },
+  { path: 'dashboard/room-detail/:roomId', component: RoomDetailComponent },
+  { path: 'dashboard/doctor-detail/:doctorId', component: DoctorDetailComponent },
   { path: 'signin', component: SigninComponent },
   { path :'specialities' ,component:SpecialitiesComponent},
   { path :'doctors/:hospitalId' ,component:DoctorsComponent},

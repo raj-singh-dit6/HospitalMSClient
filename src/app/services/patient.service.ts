@@ -35,6 +35,20 @@ export class PatientService {
       .catch((err: Response) => this.handleError(err));
   }
 
+  getPatientsByRoom(roomId:string){
+    let url = APP_HOME+"patient/all/room/"+roomId;
+    return this.http.get(url,this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  getPatientsDailyStatus(hospitalId:any){
+    let url = APP_HOME+"patient/all/status/daily/"+hospitalId;
+    return this.http.get(url,this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
   getPatients(){
     let url = APP_HOME+"patient/all";
     return this.http.get(url,this.getRequestOptions())
@@ -61,6 +75,20 @@ export class PatientService {
 
   updatePatient(patient:Patient){
     let url = APP_HOME+"patient/update";
+    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  assignDoctor(patient:Patient){
+    let url = APP_HOME+"patient/assign/doctor";
+    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+      .map((res: Response) => res.json())
+      .catch((err: Response) => this.handleError(err));
+  }
+
+  assignRoom(patient:Patient){
+    let url = APP_HOME+"patient/assign/room";
     return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));

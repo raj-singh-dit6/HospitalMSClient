@@ -5,6 +5,8 @@ import { PatientService } from '../../../../services/patient.service';
 import { PatientEditComponent } from '../patient-edit/patient-edit.component';
 import { ConfirmContentComponent } from '../../../../shared/confirm-content/confirm-content.component';
 import { ConfirmService } from '../../../../shared/confirm-content/confirm.service';
+import { AssignDoctorComponent } from '../../assign-doctor/assign-doctor.component';
+import { AssignRoomComponent } from '../../assign-room/assign-room.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -57,5 +59,16 @@ export class PatientListComponent implements OnInit {
       }
       });  
   } 
+
+
+  onAssignDoctor(patient:Patient)
+  {
+    this.modalService.open(AssignDoctorComponent,patient,this.hospitalId); 
+  }
+
+  onAssignRoom(patient:Patient)
+  {
+    this.modalService.open(AssignRoomComponent,patient,this.hospitalId); 
+  }
 }
 
