@@ -1,14 +1,13 @@
 <div class="row">
-  <div class="col-sm-6">
-    <h2>Chart 1</h2>
-    <hr class="d-sm-none">
-  </div>
-  <div class="col-sm-6">
-    <h2>Chart 2</h2>
-  </div>
+<ngb-tabset style="width:100%;">
+<ngb-tab>
+  <ng-template ngbTabTitle>Patients</ng-template>
+  <ng-template ngbTabContent>
+    <hr>
+    <app-doctor-patients [doctorId]="doctorId"></app-doctor-patients>
+  </ng-template>
+</ngb-tab>
+</ngb-tabset>
 </div>
-<div class="row">
-  <div class="col-sm-12">
-    <app-hospitals></app-hospitals>
-  </div>
-</div>
+
+

@@ -28,7 +28,7 @@ export class PatientService {
       .catch((err: Response) => this.handleError(err));
   }
 
-  getPatientsByDoctor(doctorId:string){
+  getPatientsByDoctor(doctorId:any){
     let url = APP_HOME+"patient/all/doctor/"+doctorId;
     return this.http.get(url,this.getRequestOptions())
       .map((res: Response) => res.json())
@@ -65,7 +65,6 @@ export class PatientService {
   }
 
   addPatient(patient:Patient){
-    alert(JSON.stringify(patient));
     let url = APP_HOME+"patient/add";
     return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
       .map((res: Response) => res.json())

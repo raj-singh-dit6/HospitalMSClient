@@ -88,6 +88,13 @@ import { DoctorDetailComponent } from './dashboard/head/doctor-detail/doctor-det
 import { PatientDoctorService } from './services/patientDoctor.service';
 import { AssignRoomComponent } from './dashboard/details/assign-room/assign-room.component';
 import { LineChartComponent } from './dashboard/line-chart/line-chart.component';
+import { DoctorPatientsComponent } from './dashboard/doctor/doctor-patients/doctor-patients.component';
+import { AdmittPatientsComponent } from './dashboard/doctor/admitt-patients/admitt-patients.component';
+import { TestService } from './services/test.service';
+import { TestReportService } from './services/testReport.service';
+import { TestReportsComponent } from './dashboard/doctor/test-reports/test-reports.component';
+import { TestReportEditComponent } from './dashboard/doctor/test-reports/test-report-edit/test-report-edit.component';
+import { TestReportListComponent } from './dashboard/doctor/test-reports/test-report-list/test-report-list.component';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 @NgModule({
@@ -144,7 +151,12 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     RoomDetailComponent,
     DoctorDetailComponent,
     AssignRoomComponent,
-    LineChartComponent
+    LineChartComponent,
+    DoctorPatientsComponent,
+    AdmittPatientsComponent,
+    TestReportsComponent,
+    TestReportEditComponent,
+    TestReportListComponent
   ],
   imports: [
     BrowserModule,
@@ -157,9 +169,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     NgbModule.forRoot()
     
   ],
-  providers: [ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService,PatientDoctorService],
+  providers: [TestService,TestReportService,ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService,PatientDoctorService],
   
-  entryComponents: [AssignRoomComponent,AssignDoctorComponent,ConfirmContentComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent,HospHeadEditComponent],
+  entryComponents: [TestReportEditComponent,AdmittPatientsComponent,AssignRoomComponent,AssignDoctorComponent,ConfirmContentComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent,HospHeadEditComponent],
   bootstrap: [AppComponent]
   
 })

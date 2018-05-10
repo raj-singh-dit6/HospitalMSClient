@@ -43,7 +43,6 @@ export class HeadService {
   }
 
   addHead(head:Head){
-    alert(JSON.stringify(head));
     let url = APP_HOME+"head/add";
     return this.http.post(url,JSON.stringify(head),this.getRequestOptions())
       .map((res: Response) => res.json())

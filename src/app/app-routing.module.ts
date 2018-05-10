@@ -21,6 +21,7 @@ import { PatientsComponent } from './dashboard/details/patients/patients.compone
 import { HeadComponent } from './dashboard/head/head.component';
 import { RoomDetailComponent } from './dashboard/head/room-detail/room-detail.component';
 import { DoctorDetailComponent } from './dashboard/head/doctor-detail/doctor-detail.component';
+import { TestReportsComponent } from './dashboard/doctor/test-reports/test-reports.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
   { path: 'rooms/:hospitalId', component: RoomsComponent },
   { path: 'users/:hospitalId', component: UsersComponent },
   { path: 'head/:hospitalId', component: HeadComponent },
+  { path: 'test-reports/:patientId', component: TestReportsComponent },
 ];
 
 @NgModule({

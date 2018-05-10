@@ -1,0 +1,17 @@
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+      <th scope="col">Patient Name</th>
+      <th scope="col">Contact No.</th>
+      <th scope="col">Email</th>  
+      <th scope="col">Patient Status</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let patient of patients" scope="row">
+          <td scope="col">{{patient.user.firstName}} {{patient.user.lastName}}  <i class="far fa-hospital" (click)="onAdmit(patient)"></i>    <i class="fas fa-file-medical" (click)="onTestReports(patient)"></i></td>
+          <td scope="col">{{patient.user.contact}}</td>
+          <td scope="col">{{patient.user.email}}</td>
+          <td scope="col">{{patient.patientStatus.name==null?Attended:patient.patientStatus.name}}</td>
+      </tr>
+      
+  </tbody>
+</table>

@@ -1,4 +1,4 @@
-export const APP_HOME = 'http://localhost:8080/HospitalMS/';
+export const APP_HOME = 'http://localhost:8081/HospitalMS/';
 
 export const API_ENDPOINTS = {
     LOGIN_ENDPOINT : `${APP_HOME}login`,

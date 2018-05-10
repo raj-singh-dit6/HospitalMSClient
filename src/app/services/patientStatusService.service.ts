@@ -37,7 +37,6 @@ export class PatientStatusService {
   }
 
   addPatientStatus(patientStatus:PatientStatus){
-    alert(JSON.stringify(patientStatus));
     let url = APP_HOME+"patientStatus/add";
     return this.http.post(url,JSON.stringify(patientStatus),this.getRequestOptions())
       .map((res: Response) => res.json())

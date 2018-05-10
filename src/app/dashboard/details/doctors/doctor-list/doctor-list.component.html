@@ -5,7 +5,7 @@
       <th scope="col">Contact No.</th>
       <th scope="col">Email</th>
       <th scope="col">Hospital Name</th>
-      <th scope="col">Active Status</th>
+      <th scope="col">Active</th>
       <th scope="col"></th>
       <th scope="col"></th>
   </thead>
@@ -16,7 +16,8 @@
           <td scope="col">{{doctor.user.contact}}</td>
           <td scope="col">{{doctor.user.email}}</td>
           <td scope="col">{{doctor.hospital.name}}</td>
-          <td scope="col">{{doctor.active}}</td>
+          <td scope="col" *ngIf="doctor.active==true;else elseBlock"><i class="fas fa-check"></i></td>
+            <ng-template #elseBlock><td scope="col"><i class="fas fa-times"></i></td></ng-template>
           <td scope="col">
               <button class="btn btn-primary" (click)="onEditDoctor(doctor)">Edit</button>
           <td scope="col">

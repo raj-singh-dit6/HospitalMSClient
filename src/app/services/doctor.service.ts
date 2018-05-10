@@ -43,7 +43,6 @@ export class DoctorService {
   }
 
   addDoctor(doctor:Doctor){
-    alert(JSON.stringify(doctor));
     let url = APP_HOME+"doctor/add";
     return this.http.post(url,JSON.stringify(doctor),this.getRequestOptions())
       .map((res: Response) => res.json())

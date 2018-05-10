@@ -3,7 +3,7 @@
         <th scope="col">Hospital Name</th>
         <th scope="col">Adrress</th>
         <th scope="col">Contact No.</th>
-        <th scope="col">Active Status</th>
+        <th scope="col">Active</th>
         <th scope="col">Speciality</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -13,7 +13,8 @@
             <td scope="col"><a style="cursor: pointer;" [routerLink]="['details',hospital.id]">{{hospital.name}}</a></td>
             <td scope="col">{{hospital.address}}</td>
             <td scope="col">{{hospital.contact}}</td>
-            <td scope="col">{{hospital.active}}</td>
+            <td scope="col" *ngIf="hospital.active==true;else elseBlock"><i class="fas fa-check"></i></td>
+            <ng-template #elseBlock><td scope="col"><i class="fas fa-times"></i></td></ng-template>
             <td scope="col">{{hospital.speciality.type}}</td>
             <td scope="col">
                 <button class="btn btn-primary" (click)="onEditHospital(hospital)">Edit</button>
