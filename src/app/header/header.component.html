@@ -1,5 +1,8 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
-      <a class="navbar-brand"><span style="color:aquamarine" *ngIf="authService.isAuthenticated()" >{{userInfo.firstName}}<img src="../../assets/img/hospitalMSLogo.jpg" style="width: 40px;height: 40px ;"></span></a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="row">
+          <img src="../../assets/img/hospitalMSLogo.jpg" style="width: 40px;height: 40px ;">
+      </div> 
+      <a class="navbar-brand"><span style="color:aquamarine" *ngIf="authService.isAuthenticated()" >{{userInfo.firstName}}</span></a>
       <select *ngFor="let role of userRoles">
         <option>{{role.type}}</option>
       </select>
@@ -9,36 +12,11 @@
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" routerLinkActive="active"><a class="nav-link" class="nav-link" routerLink="/dashboard" *ngIf="authService.isAuthenticated()">Dashboard</a></li>  
-          <!-- <li class="nav-item" routerLinkActive="active"><a class="nav-link" class="nav-link" routerLink="/recipes" *ngIf="authService.isAuthenticated()">Recipes</a></li>
-            <li  class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/shopping-list" *ngIf="authService.isAuthenticated()">Shopping List</a></li> 
-            <li class="nav-item dropdown" *ngIf="authService.isAuthenticated()">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Settings
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" style="cursor: pointer;" routerLinkActive="active" routerLink="/users" >Manage Users</a>
-                  </div>
-            </li>-->
         </ul>
-        <!-- <ul class="navbar-nav ml-auto">      
-           
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Manage
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" style="cursor: pointer;" routerLink="/hospitals">Hospitals</a>
-                  <a class="dropdown-item" style="cursor: pointer;" routerLink="/rooms">Rooms</a>
-                  <a class="dropdown-item" style="cursor: pointer;" routerLink="/users">Users</a>
-                  <a class="dropdown-item" style="cursor: pointer;" routerLink="/occupancies">Occupancy</a>
-                </div>
-            </li>
-          </ul> -->
           <ul class="navbar-nav ml-auto">
             <div class="btn-group btn-group-sm">
-              <button type="button" class="btn btn-sm btn-outline-primary" (click)="onNewRegistration()" value="Register" *ngIf="!authService.isAuthenticated()"><a class="nav-link button" (click)="onNewRegistration()"></a>Register</button>
-              <button type="button" class="btn btn-sm btn-outline-success" *ngIf="!authService.isAuthenticated()"><a class="nav-link button" routerLink="/signin" ></a>Sign In</button>
-              <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="authService.isAuthenticated()"><a class="nav-link button" (click)="onSignOut()"></a>Sign Out</button>
+              <button type="button" class="btn btn-sm btn-outline-success" *ngIf="!authService.isAuthenticated()"><a class="nav-link button box" routerLink="/signin" >Sign In</a></button>
+              <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="authService.isAuthenticated()"><a class="nav-link button box" (click)="onSignOut()">Sign Out</a></button>
             </div>
           </ul> 
       </div> 
