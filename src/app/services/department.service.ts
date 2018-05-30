@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { Department } from '../model/department.model';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class DepartmentService {
@@ -22,14 +23,14 @@ export class DepartmentService {
   
   getDepartments(){
     let url = APP_HOME+"department/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getDepartment(id:number){
     let url = APP_HOME+"department/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -37,21 +38,21 @@ export class DepartmentService {
   addDepartment(department:Department){
     
      let url = APP_HOME+"department/add";
-     return this.http.post(url,JSON.stringify(department),this.getRequestOptions())
+     return this.http.post(url,JSON.stringify(department),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
        .catch((err: Response) => this.handleError(err));
   }
 
   updateDepartment(department:Department){
     let url = APP_HOME+"department/update";
-    return this.http.post(url,department,this.getRequestOptions())
+    return this.http.post(url,department,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   deleteDepartment(id:number){
     let url = APP_HOME+"department/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -60,17 +61,4 @@ export class DepartmentService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-    } 
 }

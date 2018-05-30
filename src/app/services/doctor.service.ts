@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { Doctor } from '../model/doctor.model';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class DoctorService {
@@ -23,28 +24,28 @@ export class DoctorService {
   
   getDoctorsByHospital(hospitalId:string){
     let url = APP_HOME+"doctor/all/hospital/"+hospitalId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getDoctors(){
     let url = APP_HOME+"doctor/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getDoctor(id:any){
     let url = APP_HOME+"doctor/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   addDoctor(doctor:Doctor){
     let url = APP_HOME+"doctor/add";
-    return this.http.post(url,JSON.stringify(doctor),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(doctor),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -52,7 +53,7 @@ export class DoctorService {
 
   updateDoctor(doctor:Doctor){
     let url = APP_HOME+"doctor/update";
-    return this.http.post(url,JSON.stringify(doctor),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(doctor),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -60,7 +61,7 @@ export class DoctorService {
   deleteDoctor(id:number){
     
     let url = APP_HOME+"doctor/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -70,18 +71,4 @@ export class DoctorService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

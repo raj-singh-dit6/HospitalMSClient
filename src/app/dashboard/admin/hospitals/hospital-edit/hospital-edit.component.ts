@@ -10,6 +10,7 @@ import { HospitalService } from '../../../../services/hospital.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-hospital-edit',
@@ -22,7 +23,7 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
   specialities:Speciality[];
   specialitySubs:Subscription;
   editMode=false;
-  constructor(public activeModal: NgbActiveModal,private specialityService:SpecialityService,private hospitalService:HospitalService,private formBuilder: FormBuilder,private router:Router) { }
+  constructor(public activeModal: NgbActiveModal,private specialityService:SpecialityService,private hospitalService:HospitalService,private formBuilder: FormBuilder,private router:Router,private toastr: ToastrService) { }
 
   ngOnInit() {
 
@@ -89,15 +90,20 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
     const hospital:Hospital= new Hospital(this.id,updateHospital.name,updateHospital.address,speciality,updateHospital.contact,updateHospital.active);
     if(this.editMode){
       this.hospitalService.updateHospital(hospital).subscribe(result=>{
-        if(result.success){
+        if(result && result.success){
           let hospitals:Hospital[]=[];
           this.hospitalService.getHospitals().subscribe((result)=>{
           if(result && result.total!=0)
           {
             hospitals=result.data;
             this.hospitalService.hospitalChanged.next(hospitals);
+            this.toastr.success('Updated hospital record successfully', 'Notice');
           }
         });
+        }else{
+          this.toastr.error('Failed to update hospital record.', 'Notice', {
+            timeOut: 3000,
+          });
         }
       });
     }else{
@@ -109,6 +115,11 @@ export class HospitalEditComponent implements OnInit, OnDestroy {
           {
             hospitals=result.data;
             this.hospitalService.hospitalChanged.next(hospitals);
+            this.toastr.success('Added new hospital record successfully', 'Notice');
+          }else{
+            this.toastr.error('Failed to update hospital record.', 'Notice', {
+              timeOut: 3000,
+            });
           }
         });
         }

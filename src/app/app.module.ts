@@ -85,6 +85,7 @@ import { TestReportService } from './services/testReport.service';
 import { TestReportsComponent } from './dashboard/doctor/test-reports/test-reports.component';
 import { TestReportEditComponent } from './dashboard/doctor/test-reports/test-report-edit/test-report-edit.component';
 import { TestReportListComponent } from './dashboard/doctor/test-reports/test-report-list/test-report-list.component';
+import { ToastrModule } from 'ngx-toastr';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 @NgModule({
@@ -138,7 +139,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     AdmittPatientsComponent,
     TestReportsComponent,
     TestReportEditComponent,
-    TestReportListComponent
+    TestReportListComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,10 +149,13 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     HttpModule,
     AppRoutingModule,
     FusionChartsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ToastrModule.forRoot(),
+
     
   ],
-  providers: [TestService,TestReportService,ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService,PatientDoctorService],
+  providers: [TestService,TestReportService,ConfirmService,ModalService,AuthService,ChartService,RoleService,HospitalService,OccupancyService,UserService,SpecialityService,RoomService,PatientService,DoctorService,DepartmentService,PatientStatusService,HeadService,PatientDoctorService ],
+  
   
   entryComponents: [TestReportEditComponent,AdmittPatientsComponent,AssignRoomComponent,AssignDoctorComponent,ConfirmContentComponent,HospitalEditComponent,SignupComponent,OccupancyEditComponent,SpecialityEditComponent,DoctorEditComponent,PatientEditComponent,RoomEditComponent,HospHeadEditComponent],
   bootstrap: [AppComponent]

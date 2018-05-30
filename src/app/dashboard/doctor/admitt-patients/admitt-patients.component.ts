@@ -44,8 +44,6 @@ export class AdmittPatientsComponent implements OnInit {
       }
     });
     this.initForm();
-    debugger
-
   }
 
   private initForm() {

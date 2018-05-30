@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { Head } from '../model/head.model';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class HeadService {
@@ -23,28 +24,28 @@ export class HeadService {
   
   getHeadByHospital(hospitalId:string){
     let url = APP_HOME+"head/hospital/"+hospitalId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getHeads(){
     let url = APP_HOME+"head/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getHead(id:number){
     let url = APP_HOME+"head/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   addHead(head:Head){
     let url = APP_HOME+"head/add";
-    return this.http.post(url,JSON.stringify(head),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(head),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -52,7 +53,7 @@ export class HeadService {
 
   updateHead(head:Head){
     let url = APP_HOME+"head/update";
-    return this.http.post(url,JSON.stringify(head),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(head),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -60,7 +61,7 @@ export class HeadService {
   deleteHead(id:number){
     
     let url = APP_HOME+"head/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -70,18 +71,4 @@ export class HeadService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
 import { APP_HOME } from '../shared/constant/api-constant';
+import { FetchRequestOptions } from './request-options.service';
+import { HandleError } from './handle-errors.service';
 
 @Injectable()
 export class AuthService {
@@ -63,21 +65,8 @@ export class AuthService {
     let sessionKey= localStorage.getItem('sessionKey');
     let url = APP_HOME+"/userSession/delete/"+sessionKey;
     let user = JSON.parse(localStorage.getItem('user')) || { userName: '' };
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
-  }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
   }
 }

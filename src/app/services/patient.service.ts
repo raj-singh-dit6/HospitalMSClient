@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { Patient } from '../model/patient.model';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class PatientService {
@@ -23,35 +24,35 @@ export class PatientService {
   
   getPatientsByHospital(hospitalId:any){
     let url = APP_HOME+"patient/all/hospital/"+hospitalId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getPatientsByDoctor(doctorId:any){
     let url = APP_HOME+"patient/all/doctor/"+doctorId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getPatientsByRoom(roomId:string){
     let url = APP_HOME+"patient/all/room/"+roomId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getPatientsDailyStatus(hospitalId:any){
     let url = APP_HOME+"patient/all/status/daily/"+hospitalId;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getPatients(){
     let url = APP_HOME+"patient/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -59,14 +60,14 @@ export class PatientService {
 
   getPatient(id:number){
     let url = APP_HOME+"patient/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   addPatient(patient:Patient){
     let url = APP_HOME+"patient/add";
-    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patient),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -74,28 +75,28 @@ export class PatientService {
 
   updatePatient(patient:Patient){
     let url = APP_HOME+"patient/update";
-    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patient),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   assignDoctor(patient:Patient){
     let url = APP_HOME+"patient/assign/doctor";
-    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patient),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   assignRoom(patient:Patient){
     let url = APP_HOME+"patient/assign/room";
-    return this.http.post(url,JSON.stringify(patient),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patient),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   deletePatient(id:number){
     let url = APP_HOME+"patient/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -104,18 +105,4 @@ export class PatientService {
   private handleError(error: Response) {
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

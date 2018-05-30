@@ -5,8 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { API_ENDPOINTS, APP_HOME } from '../shared/constant/api-constant';
-
-
+import { FetchRequestOptions } from './request-options.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
@@ -23,7 +22,7 @@ export class PatientStatusService {
 
   getPatientStatuses(){
     let url = APP_HOME+"patientStatus/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -31,14 +30,14 @@ export class PatientStatusService {
 
   getPatientStatus(id:number){
     let url = APP_HOME+"patientStatus/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   addPatientStatus(patientStatus:PatientStatus){
     let url = APP_HOME+"patientStatus/add";
-    return this.http.post(url,JSON.stringify(patientStatus),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patientStatus),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -46,14 +45,14 @@ export class PatientStatusService {
 
   updatePatientStatus(patientStatus:PatientStatus){
     let url = APP_HOME+"patientStatus/update";
-    return this.http.post(url,JSON.stringify(patientStatus),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(patientStatus),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   deletePatientStatus(id:number){
     let url = APP_HOME+"patientStatus/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -62,18 +61,4 @@ export class PatientStatusService {
   private handleError(error: Response) {
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

@@ -5,6 +5,7 @@ import { SpecialityService } from '../../../../services/speciality.service';
 import { Speciality } from '../../../../model/speciality.model';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-speciality-edit',
@@ -18,7 +19,7 @@ export class SpecialityEditComponent implements OnInit {
   editMode=false;
   constructor(public activeModal: NgbActiveModal,
     private formBuilder : FormBuilder,
-    private specialityService:SpecialityService,private router:Router) { }
+    private specialityService:SpecialityService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit() {     
       this.editMode = (this.id!=null && this.id!='');
@@ -64,8 +65,12 @@ export class SpecialityEditComponent implements OnInit {
             {
               let specialities:Speciality[]=result.data;
               this.specialityService.specialitiesChanged.next(specialities);
-              ;
+              this.toastr.success('Updated hospital record successfully', 'Notice');
             }
+          });
+        }else{
+          this.toastr.error('Failed to update hospital record.', 'Notice', {
+            timeOut: 3000,
           });
         }
       });

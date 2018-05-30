@@ -9,18 +9,18 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from '../model/UserInfo.model';
 import { Role } from '../model/role.model';
+import { FetchRequestOptions } from './request-options.service';
+import { APP_HOME } from '../shared/constant/api-constant';
 
 @Injectable()
 export class RoleService {
-  _BASEURL:string='http://localhost:8080/SecuredWeb';
-
-  constructor(private http: Http) {
+   constructor(private http: Http) {
 
   }
 
   getRoles(){
-    let url = this._BASEURL+"/role/all";
-    return this.http.get(url,this.getRequestOptions())
+    let url = APP_HOME+"/role/all";
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -29,18 +29,4 @@ export class RoleService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

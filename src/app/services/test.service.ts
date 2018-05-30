@@ -5,6 +5,7 @@ import { APP_HOME } from '../shared/constant/api-constant';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { Test } from '../model/test.model';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class TestService {
@@ -13,14 +14,14 @@ export class TestService {
   
   getTests(){
     let url = APP_HOME+"test/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getTest(id:number){
     let url = APP_HOME+"test/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -28,21 +29,21 @@ export class TestService {
   addTest(test:Test){
     
      let url = APP_HOME+"test/add";
-     return this.http.post(url,JSON.stringify(test),this.getRequestOptions())
+     return this.http.post(url,JSON.stringify(test),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
        .catch((err: Response) => this.handleError(err));
   }
 
   updateTest(test:Test){
     let url = APP_HOME+"test/update";
-    return this.http.post(url,JSON.stringify(test),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(test),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   deleteTest(id:number){
     let url = APP_HOME+"test/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -51,17 +52,4 @@ export class TestService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-    } 
 }

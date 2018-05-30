@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { of } from 'rxjs/observable/of';
 import { Hospital } from '../model/hospital.model';
 import { Subject } from 'rxjs/Subject';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class HospitalService {
@@ -26,28 +27,28 @@ export class HospitalService {
   }
   getHospitals(){
     let url = APP_HOME+"hospital/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getHospital(id:number){
     let url = APP_HOME+"hospital/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   addHospital(hospital:Hospital){
     let url = APP_HOME+"hospital/add";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(hospital),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   updateHospital(hospital:Hospital){
     let url = APP_HOME+"hospital/update";
-    return this.http.post(url,JSON.stringify(hospital),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(hospital),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -55,7 +56,7 @@ export class HospitalService {
   deleteHospital(id:number){
     
     let url = APP_HOME+"hospital/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -65,18 +66,4 @@ export class HospitalService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-  }
-
 }

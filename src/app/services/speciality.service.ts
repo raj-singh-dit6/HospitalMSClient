@@ -14,6 +14,7 @@ import { Role } from '../model/role.model';
 import { Speciality } from '../model/speciality.model';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+import { FetchRequestOptions } from './request-options.service';
 
 @Injectable()
 export class SpecialityService {
@@ -22,14 +23,14 @@ export class SpecialityService {
   
   getSpecialities(){
     let url = APP_HOME+"speciality/all";
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   getSpeciality(id:number){
     let url = APP_HOME+"speciality/"+id;
-    return this.http.get(url,this.getRequestOptions())
+    return this.http.get(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -37,21 +38,21 @@ export class SpecialityService {
   addSpeciality(speciality:Speciality){
     
      let url = APP_HOME+"speciality/add";
-     return this.http.post(url,JSON.stringify(speciality),this.getRequestOptions())
+     return this.http.post(url,JSON.stringify(speciality),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
        .catch((err: Response) => this.handleError(err));
   }
 
   updateSpeciality(speciality:Speciality){
     let url = APP_HOME+"speciality/update";
-    return this.http.post(url,JSON.stringify(speciality),this.getRequestOptions())
+    return this.http.post(url,JSON.stringify(speciality),FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
 
   deleteSpeciality(id:number){
     let url = APP_HOME+"speciality/delete/"+id;
-    return this.http.delete(url,this.getRequestOptions())
+    return this.http.delete(url,FetchRequestOptions.getRequestOptions())
       .map((res: Response) => res.json())
       .catch((err: Response) => this.handleError(err));
   }
@@ -60,17 +61,4 @@ export class SpecialityService {
     console.error(error);
     return of(null);
   }
-
-  private getRequestOptions(): RequestOptions {
-    let sessionKey = localStorage.getItem('sessionKey');
-    let user = JSON.parse(localStorage.getItem('user')) || { username: '' };
-    let username = user['userName'];
-    let options = new RequestOptions({
-      headers: new Headers({
-        'Authorization': username + ';' + sessionKey,
-        'content-type': 'application/json'
-      })
-    });
-    return options;
-    } 
 }

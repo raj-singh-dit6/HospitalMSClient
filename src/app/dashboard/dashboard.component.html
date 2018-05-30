@@ -1,9 +1,12 @@
-<div class="col-md-12">
-  <app-admin *ngIf="role.type==='ADMIN'"></app-admin>
-  <app-head *ngIf="role.type==='HEAD'"></app-head>
-  <app-doctor *ngIf="role.type==='DOCTOR'"></app-doctor>
-  <app-patient *ngIf="role.type==='PATIENT'"></app-patient>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+          <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null" style="width:100%">{{ successMessage }}</ngb-alert>
+    </div>
+    <app-admin *ngIf="role.type==='ADMIN'"></app-admin>
+    <app-head *ngIf="role.type==='HEAD'"></app-head>
+    <app-doctor *ngIf="role.type==='DOCTOR'"></app-doctor>
+    <app-patient *ngIf="role.type==='PATIENT'"></app-patient>
+  </div>
 </div>
-
-  
 
